@@ -1,83 +1,70 @@
 import { MapPin, Phone, Clock } from 'lucide-react';
-import { locations } from '../data/locations';
 import { storeConfig } from '../config/store';
 
 export function Footer() {
   return (
     <footer className="bg-neutral-900 text-white mt-20">
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {locations.map(location => (
-            <div key={location.id} className="space-y-3">
-              <h3 className="text-lg">{location.name}</h3>
-              <div className="space-y-2 text-sm text-neutral-300">
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>{location.address}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 flex-shrink-0" />
-                  <a href={`tel:${location.phone}`} className="hover:text-white transition-colors">
-                    {location.phone}
-                  </a>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <div>{location.hours.weekday}</div>
-                    <div>{location.hours.weekend}</div>
-                  </div>
+        {/* Store Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          {/* Location */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-medium">{storeConfig.name}</h3>
+            <div className="space-y-2 text-sm text-neutral-300">
+              <div className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span>{storeConfig.address}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 flex-shrink-0" />
+                <a href={`tel:${storeConfig.phone}`} className="hover:text-white transition-colors">
+                  {storeConfig.phone}
+                </a>
+              </div>
+              <div className="flex items-start gap-2">
+                <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div>{storeConfig.hoursWeekday}</div>
+                  <div>{storeConfig.hoursWeekend}</div>
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Shop */}
+          <div>
+            <h4 className="font-medium mb-3">Shop</h4>
+            <ul className="space-y-2 text-sm text-neutral-300">
+              <li><a href="/category/sake" className="hover:text-white transition-colors">Sake</a></li>
+              <li><a href="/category/wine" className="hover:text-white transition-colors">Wine</a></li>
+              <li><a href="/category/beer" className="hover:text-white transition-colors">Beer</a></li>
+              <li><a href="/category/spirits" className="hover:text-white transition-colors">Spirits</a></li>
+            </ul>
+          </div>
+
+          {/* More */}
+          <div>
+            <h4 className="font-medium mb-3">More</h4>
+            <ul className="space-y-2 text-sm text-neutral-300">
+              <li><a href="/category/pharmacy" className="hover:text-white transition-colors">Pharmacy</a></li>
+              <li><a href="/category/grocery" className="hover:text-white transition-colors">Grocery</a></li>
+              <li><a href="/category/deli" className="hover:text-white transition-colors">Deli</a></li>
+            </ul>
+          </div>
+
+          {/* Information */}
+          <div>
+            <h4 className="font-medium mb-3">Information</h4>
+            <ul className="space-y-2 text-sm text-neutral-300">
+              <li><a href="/faq" className="hover:text-white transition-colors">FAQ</a></li>
+              <li><a href={`mailto:${storeConfig.email}`} className="hover:text-white transition-colors">Contact</a></li>
+            </ul>
+          </div>
         </div>
 
-        <div className="border-t border-neutral-800 pt-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div>
-              <h4 className="mb-3">Shop</h4>
-              <ul className="space-y-2 text-sm text-neutral-300">
-                <li><a href="/category/whiskey" className="hover:text-white transition-colors">Whiskey</a></li>
-                <li><a href="/category/vodka" className="hover:text-white transition-colors">Vodka</a></li>
-                <li><a href="/category/wine" className="hover:text-white transition-colors">Wine</a></li>
-                <li><a href="/category/beer" className="hover:text-white transition-colors">Beer</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="mb-3">Locations</h4>
-              <ul className="space-y-2 text-sm text-neutral-300">
-                {locations.map(location => (
-                  <li key={location.id}>
-                    <a href={`/location/${location.id}`} className="hover:text-white transition-colors">
-                      {location.name.split(' ').slice(0, 2).join(' ')}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="mb-3">Information</h4>
-              <ul className="space-y-2 text-sm text-neutral-300">
-                <li><a href="/faq" className="hover:text-white transition-colors">FAQ</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href={`mailto:${storeConfig.email}`} className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="mb-3">Coming Soon</h4>
-              <ul className="space-y-2 text-sm text-neutral-300">
-                <li>{storeConfig.features.deliveryEnabled ? '✓ Delivery Available' : '🚚 Delivery Service'}</li>
-                <li>📱 Mobile App</li>
-                <li>🎁 Gift Cards</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="text-center text-sm text-neutral-400 pt-6 border-t border-neutral-800">
-            <p>© {new Date().getFullYear()} {storeConfig.name}. All rights reserved. Must be 21+ to purchase alcohol.</p>
-            <p className="mt-2">Serving San Francisco since {storeConfig.since} • Licensed & Insured</p>
-          </div>
+        <div className="text-center text-sm text-neutral-400 pt-6 border-t border-neutral-800">
+          <p>© {new Date().getFullYear()} {storeConfig.name}. All rights reserved.</p>
+          <p className="mt-2">Must be 21+ to purchase alcohol.</p>
         </div>
       </div>
     </footer>

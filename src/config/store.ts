@@ -13,13 +13,20 @@ export interface StoreConfig {
   // Basic Info
   name: string;
   tagline: string;
+  headline: string;
   description: string;
+  categories: string;
   since: string;
   icon: string;
   
-  // Contact
-  email: string;
+  // Location
+  address: string;
   phone: string;
+  email: string;
+  hoursWeekday: string;
+  hoursWeekend: string;
+  lat: string;
+  lng: string;
   
   // Social
   socialLinks: {
@@ -32,6 +39,7 @@ export interface StoreConfig {
   // Branding
   primaryColor: string;
   accentColor: string;
+  heroImage: string;
   
   // Data Sources
   googleSheetId: string;
@@ -46,6 +54,7 @@ export interface StoreConfig {
     deliveryMessage: string;
     showPrices: boolean;
     showInventory: boolean;
+    showOtherLocations: boolean;
   };
   
   // SEO
@@ -60,14 +69,21 @@ export interface StoreConfig {
 export const storeConfig: StoreConfig = {
   // Basic Info
   name: import.meta.env.VITE_STORE_NAME || 'SF Liquor & Market',
-  tagline: import.meta.env.VITE_STORE_TAGLINE || 'Since 1998',
-  description: import.meta.env.VITE_STORE_DESCRIPTION || 'Premium spirits, wine, sake, craft beer & essentials.',
-  since: import.meta.env.VITE_STORE_SINCE || '1998',
-  icon: import.meta.env.VITE_STORE_ICON || '🥃',
+  tagline: import.meta.env.VITE_STORE_TAGLINE || 'Your Neighborhood Market',
+  headline: import.meta.env.VITE_STORE_HEADLINE || 'Your Local Market & Liquor Store',
+  description: import.meta.env.VITE_STORE_DESCRIPTION || 'Sake, Beer, Wine, Spirits, Pharmacy & More',
+  categories: import.meta.env.VITE_STORE_CATEGORIES || 'Sake, Beer, Wine, Spirits, Pharmacy',
+  since: import.meta.env.VITE_STORE_SINCE || '',
+  icon: import.meta.env.VITE_STORE_ICON || '🍷',
   
-  // Contact
-  email: import.meta.env.VITE_STORE_EMAIL || 'info@sfliquor.com',
+  // Location
+  address: import.meta.env.VITE_STORE_ADDRESS || '123 Main Street, San Francisco, CA',
   phone: import.meta.env.VITE_STORE_PHONE || '(415) 555-0100',
+  email: import.meta.env.VITE_STORE_EMAIL || 'info@store.com',
+  hoursWeekday: import.meta.env.VITE_STORE_HOURS_WEEKDAY || 'Mon-Fri: 9:00 AM - 10:00 PM',
+  hoursWeekend: import.meta.env.VITE_STORE_HOURS_WEEKEND || 'Sat-Sun: 10:00 AM - 9:00 PM',
+  lat: import.meta.env.VITE_STORE_LAT || '37.7749',
+  lng: import.meta.env.VITE_STORE_LNG || '-122.4194',
   
   // Social
   socialLinks: {
@@ -80,6 +96,7 @@ export const storeConfig: StoreConfig = {
   // Branding
   primaryColor: import.meta.env.VITE_PRIMARY_COLOR || '#171717',
   accentColor: import.meta.env.VITE_ACCENT_COLOR || '#16a34a',
+  heroImage: import.meta.env.VITE_HERO_IMAGE || 'https://images.unsplash.com/photo-1690248387895-2db2a8072ecc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
   
   // Data Sources - Google Sheets
   googleSheetId: import.meta.env.VITE_GOOGLE_SHEET_ID || '1yjEkHPrTZ4mPJOUJX_7mU1gwFuy0bRZbZZ_tSZASI9I',
@@ -91,18 +108,38 @@ export const storeConfig: StoreConfig = {
   // Features
   features: {
     deliveryEnabled: import.meta.env.VITE_DELIVERY_ENABLED === 'true',
-    deliveryMessage: import.meta.env.VITE_DELIVERY_MESSAGE || 'Delivery coming soon to your area',
+    deliveryMessage: import.meta.env.VITE_DELIVERY_MESSAGE || 'Delivery coming soon',
     showPrices: import.meta.env.VITE_SHOW_PRICES !== 'false',
     showInventory: import.meta.env.VITE_SHOW_INVENTORY !== 'false',
+    showOtherLocations: import.meta.env.VITE_SHOW_OTHER_LOCATIONS === 'true',
   },
   
   // SEO
   seo: {
-    title: import.meta.env.VITE_SEO_TITLE || 'SF Liquor & Market | Premium Spirits Near Union Square',
-    description: import.meta.env.VITE_SEO_DESCRIPTION || 'Full liquor store in San Francisco with whiskey, vodka, wine, sake, craft beer and more. Open late near Union Square.',
-    keywords: (import.meta.env.VITE_SEO_KEYWORDS || 'liquor store, san francisco, union square, whiskey, vodka, wine, sake, beer').split(',').map((k: string) => k.trim()),
+    title: import.meta.env.VITE_SEO_TITLE || 'Local Market & Liquor Store | San Francisco',
+    description: import.meta.env.VITE_SEO_DESCRIPTION || 'Your neighborhood market with sake, beer, wine, spirits, pharmacy and more in San Francisco.',
+    keywords: (import.meta.env.VITE_SEO_KEYWORDS || 'liquor store, market, san francisco, sake, beer, wine, spirits').split(',').map((k: string) => k.trim()),
   },
 };
 
-export default storeConfig;
+// Helper to get the store's single location
+export function getStoreLocation() {
+  return {
+    id: 'main',
+    name: storeConfig.name,
+    address: storeConfig.address,
+    phone: storeConfig.phone,
+    hours: {
+      weekday: storeConfig.hoursWeekday,
+      weekend: storeConfig.hoursWeekend,
+    },
+    coordinates: {
+      lat: parseFloat(storeConfig.lat),
+      lng: parseFloat(storeConfig.lng),
+    },
+    image: storeConfig.heroImage,
+    description: storeConfig.description,
+  };
+}
 
+export default storeConfig;

@@ -11,8 +11,8 @@ export function Hero({ onSearchClick, onDirectionsClick }: HeroProps) {
     <div className="relative bg-neutral-900 text-white overflow-hidden">
       <div className="absolute inset-0 opacity-20">
         <img
-          src="https://images.unsplash.com/photo-1673671518168-f24c11781dc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzYW4lMjBmcmFuY2lzY28lMjB1bmlvbiUyMHNxdWFyZXxlbnwxfHx8fDE3Njc1NjM4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080"
-          alt="San Francisco"
+          src={storeConfig.heroImage}
+          alt={storeConfig.name}
           className="w-full h-full object-cover"
         />
       </div>
@@ -20,10 +20,11 @@ export function Hero({ onSearchClick, onDirectionsClick }: HeroProps) {
       <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-20">
         <div className="max-w-3xl">
           <h1 className="text-3xl md:text-5xl mb-4">
-            Full Liquor Store Near Union Square
+            {storeConfig.headline}
           </h1>
           <p className="text-lg md:text-xl text-neutral-300 mb-8">
-            {storeConfig.description} Serving San Francisco since {storeConfig.since}.
+            {storeConfig.description}
+            {storeConfig.since && `. Serving San Francisco since ${storeConfig.since}.`}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">

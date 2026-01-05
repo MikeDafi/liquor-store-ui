@@ -8,7 +8,7 @@ import { CategoryPage } from './pages/CategoryPage';
 import { ProductPage } from './pages/ProductPage';
 import { FAQPage } from './pages/FAQPage';
 import { SearchPage } from './pages/SearchPage';
-import { locations } from './data/locations';
+import { storeConfig } from './config/store';
 
 type Page = 
   | { type: 'home' }
@@ -19,7 +19,6 @@ type Page =
   | { type: 'search'; query?: string };
 
 function App() {
-  const [selectedLocation] = useState(locations[0].id);
   const [currentPage, setCurrentPage] = useState<Page>({ type: 'home' });
 
   // Simple client-side routing
@@ -87,11 +86,8 @@ function App() {
   };
 
   const handleDirectionsClick = () => {
-    const location = locations.find(loc => loc.id === selectedLocation);
-    if (location) {
-      const address = encodeURIComponent(location.address);
-      window.open(`https://maps.google.com/?q=${address}`, '_blank');
-    }
+    const address = encodeURIComponent(storeConfig.address);
+    window.open(`https://maps.google.com/?q=${address}`, '_blank');
   };
 
   const renderPage = () => {
@@ -131,7 +127,6 @@ function App() {
       <Footer />
 
       <MobileBottomBar
-        selectedLocation={selectedLocation}
         onSearchClick={handleSearchClick}
       />
     </div>

@@ -1,25 +1,18 @@
 import { Phone, Navigation, Search, Home } from 'lucide-react';
-import { locations } from '../data/locations';
+import { storeConfig } from '../config/store';
 
 interface MobileBottomBarProps {
-  selectedLocation: string;
   onSearchClick: () => void;
 }
 
-export function MobileBottomBar({ selectedLocation, onSearchClick }: MobileBottomBarProps) {
-  const currentLocation = locations.find(loc => loc.id === selectedLocation);
-
+export function MobileBottomBar({ onSearchClick }: MobileBottomBarProps) {
   const handleCall = () => {
-    if (currentLocation) {
-      window.location.href = `tel:${currentLocation.phone}`;
-    }
+    window.location.href = `tel:${storeConfig.phone}`;
   };
 
   const handleDirections = () => {
-    if (currentLocation) {
-      const address = encodeURIComponent(currentLocation.address);
-      window.open(`https://maps.google.com/?q=${address}`, '_blank');
-    }
+    const address = encodeURIComponent(storeConfig.address);
+    window.open(`https://maps.google.com/?q=${address}`, '_blank');
   };
 
   return (
@@ -60,4 +53,3 @@ export function MobileBottomBar({ selectedLocation, onSearchClick }: MobileBotto
     </div>
   );
 }
-

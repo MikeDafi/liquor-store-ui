@@ -13,7 +13,9 @@ interface HomePageProps {
 export function HomePage({ onSearchClick, onDirectionsClick }: HomePageProps) {
   return (
     <div>
-      {/* Reviews Section - Moved to Top */}
+      <Hero onSearchClick={onSearchClick} onDirectionsClick={onDirectionsClick} />
+
+      {/* Reviews Section - Below Hero */}
       <section className="bg-neutral-50 py-12 border-b border-neutral-200">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl mb-8">What Our Customers Say</h2>
@@ -26,9 +28,9 @@ export function HomePage({ onSearchClick, onDirectionsClick }: HomePageProps) {
                 ))}
               </div>
               <p className="mb-4 text-neutral-700">
-                "Perfect location near Union Square. Great selection of Japanese whiskey and local wines. Staff is super helpful!"
+                "Great selection and friendly staff. Love this neighborhood spot!"
               </p>
-              <div className="text-sm text-neutral-600">- Sarah M., Tourist from NYC</div>
+              <div className="text-sm text-neutral-600">- Sarah M., Local Customer</div>
             </div>
 
             <div className="bg-white border border-neutral-200 rounded-lg p-6">
@@ -38,7 +40,7 @@ export function HomePage({ onSearchClick, onDirectionsClick }: HomePageProps) {
                 ))}
               </div>
               <p className="mb-4 text-neutral-700">
-                "Been shopping here for years. Best liquor store in SF. They carry everything and prices are fair."
+                "Been shopping here for years. They carry everything and prices are fair."
               </p>
               <div className="text-sm text-neutral-600">- David L., Local Resident</div>
             </div>
@@ -50,15 +52,13 @@ export function HomePage({ onSearchClick, onDirectionsClick }: HomePageProps) {
                 ))}
               </div>
               <p className="mb-4 text-neutral-700">
-                "Open late which is amazing! Got some Anchor Steam Beer and snacks for our hotel. Very convenient."
+                "Convenient location and great hours. Perfect for last-minute needs."
               </p>
-              <div className="text-sm text-neutral-600">- Emma K., Visiting from LA</div>
+              <div className="text-sm text-neutral-600">- Emma K., Regular Customer</div>
             </div>
           </div>
         </div>
       </section>
-
-      <Hero onSearchClick={onSearchClick} onDirectionsClick={onDirectionsClick} />
       
       {/* Available in Store Banner */}
       <section className="bg-green-50 border-y border-green-200 py-6">
@@ -86,4 +86,3 @@ export function HomePage({ onSearchClick, onDirectionsClick }: HomePageProps) {
     </div>
   );
 }
-
