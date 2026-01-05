@@ -1,7 +1,7 @@
 import { MapPin, Phone, ChevronLeft } from 'lucide-react';
 import { products } from '../data/products';
-import { locations } from '../data/locations';
 import { ProductCard } from '../components/ProductCard';
+import { storeConfig } from '../config/store';
 
 interface ProductPageProps {
   productId: string;
@@ -17,10 +17,6 @@ export function ProductPage({ productId }: ProductPageProps) {
       </div>
     );
   }
-
-  const availableLocations = locations.filter(loc =>
-    product.locations.includes(loc.id)
-  );
 
   const relatedProducts = products
     .filter(p => p.category === product.category && p.id !== product.id)
@@ -58,8 +54,7 @@ export function ProductPage({ productId }: ProductPageProps) {
             <div className="text-sm text-neutral-600 mb-2">{product.brand}</div>
             <h1 className="text-3xl md:text-4xl mb-4">{product.name}</h1>
             
-            <div className="flex items-baseline gap-4 mb-6">
-              <span className="text-3xl">${product.price.toFixed(2)}</span>
+            <div className="mb-6">
               <span className="text-lg text-neutral-600">{product.size}</span>
             </div>
 
@@ -70,25 +65,21 @@ export function ProductPage({ productId }: ProductPageProps) {
             {/* Availability */}
             <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
               <h2 className="text-lg mb-4">Available In-Store</h2>
-              <div className="space-y-3">
-                {availableLocations.map(location => (
-                  <div key={location.id} className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0 text-green-700" />
-                      <div>
-                        <div>{location.name}</div>
-                        <div className="text-sm text-neutral-600">{location.address}</div>
-                      </div>
-                    </div>
-                    <a
-                      href={`tel:${location.phone}`}
-                      className="flex items-center gap-2 px-4 py-2 border border-neutral-900 rounded-lg hover:bg-neutral-900 hover:text-white transition-colors whitespace-nowrap"
-                    >
-                      <Phone className="w-4 h-4" />
-                      Call
-                    </a>
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0 text-green-700" />
+                  <div>
+                    <div>{storeConfig.name}</div>
+                    <div className="text-sm text-neutral-600">{storeConfig.address}</div>
                   </div>
-                ))}
+                </div>
+                <a
+                  href={`tel:${storeConfig.phone}`}
+                  className="flex items-center gap-2 px-4 py-2 border border-neutral-900 rounded-lg hover:bg-neutral-900 hover:text-white transition-colors whitespace-nowrap"
+                >
+                  <Phone className="w-4 h-4" />
+                  Call
+                </a>
               </div>
             </div>
 
@@ -96,14 +87,11 @@ export function ProductPage({ productId }: ProductPageProps) {
             <div className="bg-neutral-50 rounded-lg p-6">
               <h3 className="mb-3">How to Purchase</h3>
               <ol className="space-y-2 text-sm text-neutral-700">
-                <li>1. Call your preferred location to confirm availability</li>
+                <li>1. Call us to confirm availability</li>
                 <li>2. Visit the store during business hours</li>
                 <li>3. Present valid ID (21+ required for alcohol)</li>
                 <li>4. Complete your purchase in-store</li>
               </ol>
-              <div className="mt-4 text-sm text-neutral-600">
-                Delivery service coming soon to your area
-              </div>
             </div>
 
             {/* Product Details */}
@@ -148,4 +136,3 @@ export function ProductPage({ productId }: ProductPageProps) {
     </div>
   );
 }
-

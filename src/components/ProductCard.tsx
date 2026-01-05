@@ -1,16 +1,11 @@
 import { MapPin } from 'lucide-react';
 import { Product } from '../data/products';
-import { locations } from '../data/locations';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const availableLocations = locations.filter(loc => 
-    product.locations.includes(loc.id)
-  );
-
   return (
     <a
       href={`/product/${product.id}`}
@@ -28,8 +23,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="text-sm text-neutral-600 mb-1">{product.brand}</div>
         <h3 className="mb-2 group-hover:text-neutral-600 transition-colors">{product.name}</h3>
         
-        <div className="flex items-baseline justify-between mb-3">
-          <span className="text-xl">${product.price.toFixed(2)}</span>
+        <div className="mb-3">
           <span className="text-sm text-neutral-600">{product.size}</span>
         </div>
 
@@ -37,16 +31,9 @@ export function ProductCard({ product }: ProductCardProps) {
           <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
           <div>
             <div className="text-green-700">Available in store</div>
-            <div className="text-xs">
-              {availableLocations.length === locations.length
-                ? 'All locations'
-                : `${availableLocations.length} location${availableLocations.length > 1 ? 's' : ''}`
-              }
-            </div>
           </div>
         </div>
       </div>
     </a>
   );
 }
-
