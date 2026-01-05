@@ -19,8 +19,8 @@ export const categories = [
   { id: 'tequila', name: 'Tequila', icon: '🥃', image: 'https://images.unsplash.com/photo-1516535794938-6063878f08cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
   { id: 'beer', name: 'Beer', icon: '🍺', image: 'https://images.unsplash.com/photo-1659464832543-9c6c52abcadf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmFmdCUyMGJlZXIlMjBib3R0bGVzfGVufDF8fHx8MTc2NzU2MDc3M3ww&ixlib=rb-4.1.0&q=80&w=1080' },
   { id: 'sake', name: 'Sake', icon: '🍶', image: 'https://images.unsplash.com/photo-1579541592065-da8a15e49bc7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
-  { id: 'pharmacy', name: 'Pharmacy', icon: '💊', image: 'https://images.unsplash.com/photo-1690248387895-2db2a8072ecc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsaXF1b3IlMjBzdG9yZSUyMGludGVyaW9yfGVufDF8fHx8MTc2NzUzODQ2Nnww&ixlib=rb-4.1.0&q=80&w=1080' },
-  { id: 'dairy', name: 'Dairy & Frozen', icon: '🧊', image: 'https://images.unsplash.com/photo-1690248387895-2db2a8072ecc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsaXF1b3IlMjBzdG9yZSUyMGludGVyaW9yfGVufDF8fHx8MTc2NzUzODQ2Nnww&ixlib=rb-4.1.0&q=80&w=1080' }
+  { id: 'pharmacy', name: 'Pharmacy', icon: '💊', image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
+  { id: 'dairy', name: 'Dairy & Frozen', icon: '🧊', image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' }
 ];
 
 export const products: Product[] = [
@@ -32,7 +32,7 @@ export const products: Product[] = [
     subcategory: 'Japanese Whiskey',
     price: 149.99,
     size: '750ml',
-    image: 'https://images.unsplash.com/photo-1698064104861-e2dbc14ea72d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aGlza2V5JTIwYm90dGxlcyUyMHNoZWxmfGVufDF8fHx8MTc2NzU2MDc3Mnww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     description: 'Premium Japanese single malt whiskey with notes of honey and fruit.',
     brand: 'Yamazaki',
     locations: ['union-square', 'north-beach', 'financial-district'],
@@ -70,7 +70,7 @@ export const products: Product[] = [
     subcategory: 'Premium Vodka',
     price: 39.99,
     size: '750ml',
-    image: 'https://images.unsplash.com/photo-1645784125144-4c06a561fc58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2b2RrYSUyMGJvdHRsZXxlbnwxfHx8fDE3Njc0NjI4ODl8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1608885898957-a559228e8749?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     description: 'French premium vodka with a smooth, clean finish.',
     brand: 'Grey Goose',
     locations: ['union-square', 'north-beach', 'financial-district'],
@@ -96,7 +96,7 @@ export const products: Product[] = [
     subcategory: 'Red Wine',
     price: 45.99,
     size: '750ml',
-    image: 'https://images.unsplash.com/photo-1758827926633-621fb8694e6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aW5lJTIwYm90dGxlcyUyMGRpc3BsYXl8ZW58MXx8fHwxNzY3NTYzODgzfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     description: 'Local California red with bold tannins and dark fruit flavors.',
     brand: 'Stag\'s Leap',
     locations: ['union-square', 'north-beach', 'financial-district'],
@@ -122,7 +122,7 @@ export const products: Product[] = [
     subcategory: 'Local Craft Beer',
     price: 12.99,
     size: '6-pack',
-    image: 'https://images.unsplash.com/photo-1659464832543-9c6c52abcadf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmFmdCUyMGJlZXIlMjBib3R0bGVzfGVufDF8fHx8MTc2NzU2MDc3M3ww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     description: 'Classic San Francisco craft beer with a unique steam beer style.',
     brand: 'Anchor Brewing',
     locations: ['union-square', 'north-beach', 'financial-district'],
@@ -136,7 +136,7 @@ export const products: Product[] = [
     subcategory: 'Premium Sake',
     price: 79.99,
     size: '720ml',
-    image: 'https://images.unsplash.com/photo-1645784125144-4c06a561fc58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2b2RrYSUyMGJvdHRsZXxlbnwxfHx8fDE3Njc0NjI4ODl8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1579541592065-da8a15e49bc7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     description: 'Ultra-premium Japanese sake with delicate floral notes.',
     brand: 'Dassai',
     locations: ['union-square', 'north-beach'],
