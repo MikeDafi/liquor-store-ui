@@ -3,6 +3,7 @@ import { CategoryGrid } from '../components/CategoryGrid';
 import { TouristFavorites } from '../components/TouristFavorites';
 import { FAQSection } from '../components/FAQSection';
 import { Star, Truck } from 'lucide-react';
+import { storeConfig } from '../config/store';
 
 interface HomePageProps {
   onSearchClick: () => void;
@@ -71,7 +72,7 @@ export function HomePage({ onSearchClick, onDirectionsClick }: HomePageProps) {
             </div>
             <div className="flex items-center gap-2 text-sm bg-yellow-100 px-4 py-2 rounded-lg">
               <Truck className="w-5 h-5" />
-              <span>Delivery coming soon to your area</span>
+              <span>{storeConfig.features.deliveryMessage}</span>
             </div>
           </div>
         </div>

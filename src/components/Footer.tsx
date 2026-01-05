@@ -1,5 +1,6 @@
 import { MapPin, Phone, Clock } from 'lucide-react';
 import { locations } from '../data/locations';
+import { storeConfig } from '../config/store';
 
 export function Footer() {
   return (
@@ -46,9 +47,13 @@ export function Footer() {
             <div>
               <h4 className="mb-3">Locations</h4>
               <ul className="space-y-2 text-sm text-neutral-300">
-                <li><a href="/location/union-square" className="hover:text-white transition-colors">Union Square</a></li>
-                <li><a href="/location/north-beach" className="hover:text-white transition-colors">North Beach</a></li>
-                <li><a href="/location/financial-district" className="hover:text-white transition-colors">Financial District</a></li>
+                {locations.map(location => (
+                  <li key={location.id}>
+                    <a href={`/location/${location.id}`} className="hover:text-white transition-colors">
+                      {location.name.split(' ').slice(0, 2).join(' ')}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             <div>
@@ -56,13 +61,13 @@ export function Footer() {
               <ul className="space-y-2 text-sm text-neutral-300">
                 <li><a href="/faq" className="hover:text-white transition-colors">FAQ</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+                <li><a href={`mailto:${storeConfig.email}`} className="hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
               <h4 className="mb-3">Coming Soon</h4>
               <ul className="space-y-2 text-sm text-neutral-300">
-                <li>🚚 Delivery Service</li>
+                <li>{storeConfig.features.deliveryEnabled ? '✓ Delivery Available' : '🚚 Delivery Service'}</li>
                 <li>📱 Mobile App</li>
                 <li>🎁 Gift Cards</li>
               </ul>
@@ -70,12 +75,11 @@ export function Footer() {
           </div>
 
           <div className="text-center text-sm text-neutral-400 pt-6 border-t border-neutral-800">
-            <p>© 2026 SF Liquor & Market. All rights reserved. Must be 21+ to purchase alcohol.</p>
-            <p className="mt-2">Serving San Francisco since 1998 • Licensed & Insured</p>
+            <p>© {new Date().getFullYear()} {storeConfig.name}. All rights reserved. Must be 21+ to purchase alcohol.</p>
+            <p className="mt-2">Serving San Francisco since {storeConfig.since} • Licensed & Insured</p>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-

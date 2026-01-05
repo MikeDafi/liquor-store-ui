@@ -1,4 +1,5 @@
 import { Navigation, Search } from 'lucide-react';
+import { storeConfig } from '../config/store';
 
 interface HeroProps {
   onSearchClick: () => void;
@@ -22,7 +23,7 @@ export function Hero({ onSearchClick, onDirectionsClick }: HeroProps) {
             Full Liquor Store Near Union Square
           </h1>
           <p className="text-lg md:text-xl text-neutral-300 mb-8">
-            Premium spirits, wine, sake, craft beer & essentials. Serving San Francisco since 1998.
+            {storeConfig.description} Serving San Francisco since {storeConfig.since}.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
@@ -46,4 +47,3 @@ export function Hero({ onSearchClick, onDirectionsClick }: HeroProps) {
     </div>
   );
 }
-

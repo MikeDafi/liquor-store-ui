@@ -1,5 +1,6 @@
 import { FAQSection } from '../components/FAQSection';
 import { Phone, Mail } from 'lucide-react';
+import { storeConfig } from '../config/store';
 
 export function FAQPage() {
   return (
@@ -29,14 +30,14 @@ export function FAQPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:(415) 555-0100"
+                href={`tel:${storeConfig.phone}`}
                 className="flex items-center justify-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors"
               >
                 <Phone className="w-5 h-5" />
-                Call Union Square
+                Call Us
               </a>
               <a
-                href="mailto:info@sfliquor.com"
+                href={`mailto:${storeConfig.email}`}
                 className="flex items-center justify-center gap-2 px-6 py-3 border border-neutral-900 rounded-lg hover:bg-neutral-50 transition-colors"
               >
                 <Mail className="w-5 h-5" />
