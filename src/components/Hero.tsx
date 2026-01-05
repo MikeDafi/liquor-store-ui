@@ -22,9 +22,11 @@ export function Hero({ onSearchClick, onDirectionsClick }: HeroProps) {
           <h1 className="text-3xl md:text-5xl mb-4">
             {storeConfig.headline}
           </h1>
-          <p className="text-lg md:text-xl text-neutral-300 mb-8">
+          <p className="text-lg md:text-xl text-neutral-300 mb-4">
             {storeConfig.description}
-            {storeConfig.since && `. Serving San Francisco since ${storeConfig.since}.`}
+          </p>
+          <p className="text-md text-neutral-400 mb-8">
+            📍 {storeConfig.address} • 🕐 {storeConfig.hoursWeekday}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
