@@ -3,7 +3,7 @@
  * 
  * Each Vercel deployment should set the VITE_STORE_ID environment variable:
  * - home-service-market: Home Service Market store
- * - liquor-store: SF Liquor Store  
+ * - town-country-market: Town Country Market store
  * - mmc-wine-spirit: MMC Wine & Spirit store
  * 
  * In Vercel dashboard: Settings > Environment Variables > Add:
@@ -27,10 +27,10 @@ export const stores: StoreConfig[] = [
     url: 'https://home-service-market.vercel.app', // Update with actual URL
   },
   {
-    id: 'liquor-store',
-    name: 'SF Liquor Store',
+    id: 'town-country-market',
+    name: 'Town Country Market',
     spreadsheetId: '1NH20t073dWNihFY49p5WYxiGTf0_ui1GBVN9UxPklh4',
-    url: 'https://liquor-store-ui.vercel.app', // Update with actual URL
+    url: 'https://town-country-market.vercel.app', // Update with actual URL
   },
   {
     id: 'mmc-wine-spirit',
