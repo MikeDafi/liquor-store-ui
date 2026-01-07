@@ -1,9 +1,15 @@
 import { Product, categories } from './products';
 import { evictStaleImages } from './imageCache';
+import { getCurrentStore, getSpreadsheetCsvUrl } from './storeConfig';
 
-// Cache configuration
-const CACHE_KEY = 'product_inventory_cache';
+// Cache configuration - includes store ID to handle multi-store caching
+const CACHE_KEY_PREFIX = 'product_inventory_cache';
 const CACHE_EXPIRY_MS = 60 * 60 * 1000; // 1 hour in milliseconds
+
+function getCacheKey(): string {
+  const store = getCurrentStore();
+  return `${CACHE_KEY_PREFIX}_${store.id}`;
+}
 
 // Pagination defaults
 export const DEFAULT_PAGE_SIZE = 24;
@@ -39,10 +45,19 @@ const defaultImage = 'https://images.unsplash.com/photo-1690248387895-2db2a8072e
 
 /**
  * Parse CSV content into product array
+ * Supports two formats:
+ * - Google Sheets format: Available, Name, Code, Price, Category
+ * - Local CSV format: Name, Code, Price, Category
  */
 function parseCSV(csvContent: string): Product[] {
   const lines = csvContent.trim().split('\n');
   const products: Product[] = [];
+  
+  if (lines.length === 0) return products;
+  
+  // Detect format from header row
+  const headerLine = lines[0].toLowerCase();
+  const hasAvailableColumn = headerLine.includes('available');
   
   // Skip header row
   for (let i = 1; i < lines.length; i++) {
@@ -50,13 +65,31 @@ function parseCSV(csvContent: string): Product[] {
     if (!line.trim()) continue;
     
     // Handle CSV with quotes (for fields containing commas)
-    const matches = line.match(/("([^"]*)"|[^,]+)/g);
-    if (!matches || matches.length < 4) continue;
+    const matches = line.match(/("([^"]*)"|[^,]*)/g);
+    if (!matches) continue;
     
-    const name = matches[0].replace(/^"|"$/g, '').trim();
-    const code = matches[1].replace(/^"|"$/g, '').trim();
-    // Ignore price from CSV - prices should be set separately
-    const category = matches[3].replace(/^"|"$/g, '').trim().toLowerCase();
+    // Clean up matches - remove quotes and trim
+    const fields = matches.map(m => m.replace(/^"|"$/g, '').trim());
+    
+    let name: string, code: string, category: string;
+    
+    if (hasAvailableColumn) {
+      // Google Sheets format: Available, Name, Code, Price, Category
+      if (fields.length < 5) continue;
+      const available = fields[0].toUpperCase();
+      if (available !== 'TRUE') continue; // Skip unavailable products
+      name = fields[1];
+      code = fields[2];
+      // fields[3] is price - ignored
+      category = fields[4].toLowerCase();
+    } else {
+      // Local CSV format: Name, Code, Price, Category
+      if (fields.length < 4) continue;
+      name = fields[0];
+      code = fields[1];
+      // fields[2] is price - ignored
+      category = fields[3].toLowerCase();
+    }
     
     if (!name || !code || !category) continue;
     
@@ -202,7 +235,8 @@ function extractSize(name: string): string {
  */
 function isCacheValid(): boolean {
   try {
-    const cached = localStorage.getItem(CACHE_KEY);
+    const cacheKey = getCacheKey();
+    const cached = localStorage.getItem(cacheKey);
     if (!cached) return false;
     
     const data: CachedData = JSON.parse(cached);
@@ -221,7 +255,8 @@ function getCachedProducts(): Product[] | null {
   try {
     if (!isCacheValid()) return null;
     
-    const cached = localStorage.getItem(CACHE_KEY);
+    const cacheKey = getCacheKey();
+    const cached = localStorage.getItem(cacheKey);
     if (!cached) return null;
     
     const data: CachedData = JSON.parse(cached);
@@ -236,11 +271,12 @@ function getCachedProducts(): Product[] | null {
  */
 function setCachedProducts(products: Product[]): void {
   try {
+    const cacheKey = getCacheKey();
     const data: CachedData = {
       products,
       timestamp: Date.now(),
     };
-    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    localStorage.setItem(cacheKey, JSON.stringify(data));
   } catch (error) {
     console.warn('Failed to cache products:', error);
   }
@@ -251,7 +287,8 @@ function setCachedProducts(products: Product[]): void {
  */
 export function clearProductCache(): void {
   try {
-    localStorage.removeItem(CACHE_KEY);
+    const cacheKey = getCacheKey();
+    localStorage.removeItem(cacheKey);
   } catch {
     // Ignore errors
   }
@@ -260,11 +297,13 @@ export function clearProductCache(): void {
 /**
  * Get cache info (for debugging)
  */
-export function getCacheInfo(): { isValid: boolean; timestamp: number | null; productCount: number } {
+export function getCacheInfo(): { isValid: boolean; timestamp: number | null; productCount: number; storeId: string } {
   try {
-    const cached = localStorage.getItem(CACHE_KEY);
+    const store = getCurrentStore();
+    const cacheKey = getCacheKey();
+    const cached = localStorage.getItem(cacheKey);
     if (!cached) {
-      return { isValid: false, timestamp: null, productCount: 0 };
+      return { isValid: false, timestamp: null, productCount: 0, storeId: store.id };
     }
     
     const data: CachedData = JSON.parse(cached);
@@ -272,37 +311,66 @@ export function getCacheInfo(): { isValid: boolean; timestamp: number | null; pr
       isValid: isCacheValid(),
       timestamp: data.timestamp,
       productCount: data.products.length,
+      storeId: store.id,
     };
   } catch {
-    return { isValid: false, timestamp: null, productCount: 0 };
+    const store = getCurrentStore();
+    return { isValid: false, timestamp: null, productCount: 0, storeId: store.id };
   }
 }
 
-// CSV content will be loaded from the file
-// For client-side, we embed the CSV or fetch it
+// CSV content will be loaded from Google Sheets
+// Each store has its own spreadsheet
 let csvContentPromise: Promise<string> | null = null;
-
-// CSV paths to try (in order) - Vite serves public files at root
-const CSV_PATHS = [
-  '/Home Service Market - Categorized.csv',
-  '/inventory.csv',
-];
+let lastStoreId: string | null = null;
 
 /**
- * Load CSV content (fetch from file or use embedded data)
+ * Load CSV content from Google Sheets
+ * Falls back to local files if Google Sheets fails
  */
 async function loadCSVContent(): Promise<string> {
+  const store = getCurrentStore();
+  
+  // Reset promise if store changed
+  if (lastStoreId !== store.id) {
+    csvContentPromise = null;
+    lastStoreId = store.id;
+  }
+  
   if (csvContentPromise) return csvContentPromise;
   
   csvContentPromise = (async () => {
-    // Try each path in order
-    for (const path of CSV_PATHS) {
+    // Try Google Sheets first
+    const googleSheetsUrl = getSpreadsheetCsvUrl(store.spreadsheetId);
+    console.log(`Loading inventory for ${store.name} from Google Sheets...`);
+    
+    try {
+      const response = await fetch(googleSheetsUrl);
+      if (response.ok) {
+        const text = await response.text();
+        if (text && text.length > 50) {
+          console.log(`Loaded ${text.split('\n').length - 1} products from Google Sheets for ${store.name}`);
+          return text;
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to fetch from Google Sheets:', error);
+    }
+    
+    // Fallback: try local CSV files
+    console.log('Falling back to local CSV files...');
+    const localPaths = [
+      '/Home Service Market - Categorized.csv',
+      '/inventory.csv',
+    ];
+    
+    for (const path of localPaths) {
       try {
         const response = await fetch(path);
         if (response.ok) {
           const text = await response.text();
           if (text.includes('Name of Product') || text.includes('Category')) {
-            console.log('Loaded CSV from:', path);
+            console.log('Loaded CSV from local file:', path);
             return text;
           }
         }
@@ -312,7 +380,7 @@ async function loadCSVContent(): Promise<string> {
     }
     
     // Fallback: return empty CSV if all fetches fail
-    console.warn('Could not fetch CSV file from any path, using empty inventory');
+    console.warn('Could not fetch inventory data, using empty inventory');
     return 'Name of Product,Code,Price in Store,Category\n';
   })();
   
