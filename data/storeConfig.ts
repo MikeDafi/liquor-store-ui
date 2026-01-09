@@ -19,23 +19,24 @@ export interface StoreConfig {
 }
 
 // All stores in the network
+// Spreadsheet IDs corrected based on actual Google Sheets URLs
 export const stores: StoreConfig[] = [
   {
     id: 'home-service-market',
     name: 'Home Service Market',
-    spreadsheetId: '17lpkOLWIIeXz17sjTuGrAyQMNz3wcRsUCleuirLc2Bw',
+    spreadsheetId: '1NH20t073dWNihFY49p5WYxiGTf0_ui1GBVN9UxPklh4',
     url: 'https://home-service-market.vercel.app', // Update with actual URL
   },
   {
     id: 'town-country-market',
     name: 'Town Country Market',
-    spreadsheetId: '1NH20t073dWNihFY49p5WYxiGTf0_ui1GBVN9UxPklh4',
+    spreadsheetId: '1__JWmXYb_2fbtMp1Fk7DSCXq6DNQGrFfsLQ4Pdj3emg',
     url: 'https://town-country-market.vercel.app', // Update with actual URL
   },
   {
     id: 'mmc-wine-spirit',
     name: 'MMC Wine & Spirit',
-    spreadsheetId: '1__JWmXYb_2fbtMp1Fk7DSCXq6DNQGrFfsLQ4Pdj3emg',
+    spreadsheetId: '17lpkOLWIIeXz17sjTuGrAyQMNz3wcRsUCleuirLc2Bw',
     url: 'https://mmc-wine-spirit.vercel.app', // Update with actual URL
   },
 ];
@@ -59,8 +60,9 @@ export function getOtherStores(): StoreConfig[] {
 
 /**
  * Build Google Sheets CSV export URL
+ * Default gid=2011133176 is the "All Products" sheet
  */
-export function getSpreadsheetCsvUrl(spreadsheetId: string, gid: string = '0'): string {
+export function getSpreadsheetCsvUrl(spreadsheetId: string, gid: string = '2011133176'): string {
   return `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&gid=${gid}`;
 }
 
