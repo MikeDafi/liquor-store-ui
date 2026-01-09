@@ -319,14 +319,15 @@ export function getCacheInfo(): { isValid: boolean; timestamp: number | null; pr
   }
 }
 
-// CSV content will be loaded from Google Sheets
+// CSV content will be loaded from API (which proxies Google Sheets)
 // Each store has its own spreadsheet
 let csvContentPromise: Promise<string> | null = null;
 let lastStoreId: string | null = null;
 
 /**
- * Load CSV content from Google Sheets
- * Falls back to local files if Google Sheets fails
+ * Load CSV content from API endpoint
+ * The API proxies Google Sheets to avoid CORS issues
+ * Falls back to local files if API fails
  */
 async function loadCSVContent(): Promise<string> {
   const store = getCurrentStore();
@@ -340,15 +341,32 @@ async function loadCSVContent(): Promise<string> {
   if (csvContentPromise) return csvContentPromise;
   
   csvContentPromise = (async () => {
-    // Try Google Sheets first
+    // Try API endpoint first (proxies Google Sheets)
+    const apiUrl = `/api/inventory?store=${store.id}`;
+    console.log(`Loading inventory for ${store.name} via API...`);
+    
+    try {
+      const response = await fetch(apiUrl);
+      if (response.ok) {
+        const text = await response.text();
+        if (text && text.length > 50 && !text.includes('<!DOCTYPE')) {
+          console.log(`Loaded ${text.split('\n').length - 1} products via API for ${store.name}`);
+          return text;
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to fetch from API:', error);
+    }
+    
+    // Fallback: try direct Google Sheets (may work in some environments)
+    console.log('Trying direct Google Sheets fetch...');
     const googleSheetsUrl = getSpreadsheetCsvUrl(store.spreadsheetId);
-    console.log(`Loading inventory for ${store.name} from Google Sheets...`);
     
     try {
       const response = await fetch(googleSheetsUrl);
       if (response.ok) {
         const text = await response.text();
-        if (text && text.length > 50) {
+        if (text && text.length > 50 && !text.includes('<!DOCTYPE')) {
           console.log(`Loaded ${text.split('\n').length - 1} products from Google Sheets for ${store.name}`);
           return text;
         }
