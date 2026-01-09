@@ -3,50 +3,50 @@
     "id": "home-service-market",
     "name": "Home Service Market",
     "tagline": "Your neighborhood liquor & convenience store",
-    "description": "Premium spirits, wine, sake, craft beer & everyday essentials. Serving the community since 1998.",
-    "headline": "Full Service Liquor & Market",
+    "description": "Hayes Valley's trusted neighborhood market since serving the Western Addition and Lower Haight communities. Located on Hayes Street near Divisadero, we offer an extensive selection of craft beer, California wines, premium spirits, and everyday essentials. Whether you're hosting a dinner party in Alamo Square or grabbing supplies before a show at The Fillmore, we're your one-stop shop.",
+    "headline": "Hayes Valley Liquor & Market",
     "icon": "🏪",
     "address": {
-      "street": "123 Main Street",
+      "street": "1700 Hayes St",
       "city": "San Francisco",
       "state": "CA",
-      "zip": "94102",
-      "full": "123 Main Street, San Francisco, CA 94102"
+      "zip": "94117",
+      "full": "1700 Hayes St, San Francisco, CA 94117"
     },
-    "phone": "(415) 555-0100",
+    "phone": "(415) 346-7000",
     "hours": {
-      "weekday": "8:00 AM - 10:00 PM",
-      "weekend": "9:00 AM - 11:00 PM"
+      "weekday": "Mon-Thu: 9 AM - 9 PM, Fri: 9 AM - 10 PM",
+      "weekend": "Sat: 9 AM - 10 PM, Sun: 9 AM - 9 PM"
     },
     "spreadsheetId": "1NH20t073dWNihFY49p5WYxiGTf0_ui1GBVN9UxPklh4",
     "url": "https://home-service-market.vercel.app",
     "faqs": [
       {
         "question": "What are your store hours?",
-        "answer": "We're open Monday-Friday 8:00 AM - 10:00 PM, and Saturday-Sunday 9:00 AM - 11:00 PM."
+        "answer": "We're open Monday-Thursday 9 AM - 9 PM, Friday-Saturday 9 AM - 10 PM, and Sunday 9 AM - 9 PM."
+      },
+      {
+        "question": "Where are you located?",
+        "answer": "We're at 1700 Hayes St in San Francisco's Hayes Valley neighborhood, near the corner of Hayes and Shrader, just a few blocks from Alamo Square Park."
       },
       {
         "question": "Do you offer delivery?",
-        "answer": "Yes! We offer local delivery within a 5-mile radius. Orders over $50 qualify for free delivery."
+        "answer": "We don't currently offer delivery, but we're conveniently located with street parking available. Stop by and browse our full selection in-store!"
       },
       {
         "question": "Do you have a loyalty program?",
-        "answer": "Yes, join our rewards program and earn points on every purchase. Sign up in-store or online."
-      },
-      {
-        "question": "Can I special order products?",
-        "answer": "Absolutely! If we don't have something in stock, we can usually special order it for you within 3-5 business days."
+        "answer": "Yes, join our rewards program and earn points on every purchase. Sign up in-store."
       },
       {
         "question": "Do you carry local craft beers?",
-        "answer": "Yes! We have an extensive selection of local San Francisco Bay Area craft beers and rotate seasonal offerings."
+        "answer": "Yes! We have an extensive selection of San Francisco Bay Area craft beers including local favorites and rotate seasonal offerings."
       }
     ],
     "reviews": [
       {
         "name": "Michael R.",
         "rating": 5,
-        "text": "Best selection of whiskey in the neighborhood. The staff really knows their stuff!",
+        "text": "Best selection in Hayes Valley. The staff really knows their stuff!",
         "date": "2024-01-15"
       },
       {
@@ -58,7 +58,7 @@
       {
         "name": "David K.",
         "rating": 4,
-        "text": "Convenient location and friendly service. My go-to spot for wine.",
+        "text": "Convenient location near Alamo Square. My go-to spot for wine.",
         "date": "2024-03-10"
       }
     ]
@@ -66,63 +66,63 @@
   "town-country-market": {
     "id": "town-country-market",
     "name": "Town Country Market",
-    "tagline": "Quality spirits & fine wines since 1985",
-    "description": "A curated selection of premium wines, craft spirits, and gourmet provisions for the discerning customer.",
-    "headline": "Premium Wine & Spirits",
+    "tagline": "Nob Hill's premier wine & spirits destination",
+    "description": "Serving San Francisco's prestigious Nob Hill and Union Square neighborhoods from our Post Street location. Steps from the historic Fairmont Hotel and cable car lines, we offer a curated selection of fine wines, premium spirits, and gourmet provisions. Perfect for hotel guests, theater-goers, and discerning locals seeking quality beverages in the heart of downtown San Francisco.",
+    "headline": "Nob Hill Wine & Spirits",
     "icon": "🍷",
     "address": {
-      "street": "456 Oak Avenue",
+      "street": "600 Post St",
       "city": "San Francisco",
       "state": "CA",
-      "zip": "94110",
-      "full": "456 Oak Avenue, San Francisco, CA 94110"
+      "zip": "94109",
+      "full": "600 Post St, San Francisco, CA 94109"
     },
     "phone": "(415) 555-0200",
     "hours": {
-      "weekday": "9:00 AM - 9:00 PM",
-      "weekend": "10:00 AM - 8:00 PM"
+      "weekday": "8 AM - 12 AM",
+      "weekend": "8 AM - 12 AM"
     },
     "spreadsheetId": "1__JWmXYb_2fbtMp1Fk7DSCXq6DNQGrFfsLQ4Pdj3emg",
     "url": "https://town-country-market.vercel.app",
     "faqs": [
       {
         "question": "What are your store hours?",
-        "answer": "We're open Monday-Friday 9:00 AM - 9:00 PM, and Saturday-Sunday 10:00 AM - 8:00 PM."
+        "answer": "We're open 7 days a week from 8 AM to 12 AM (midnight). Perfect for late-night needs!"
       },
       {
-        "question": "Do you offer wine tastings?",
-        "answer": "Yes! We host wine tastings every Saturday from 2-5 PM. Check our events calendar for featured wineries."
+        "question": "Where are you located?",
+        "answer": "We're at 600 Post St in San Francisco's Nob Hill neighborhood, just steps from Union Square and the historic Fairmont Hotel."
+      },
+      {
+        "question": "Do you offer delivery?",
+        "answer": "We don't currently offer delivery, but our central downtown location makes us easy to reach. We're near several MUNI lines and the Powell Street cable car."
       },
       {
         "question": "Can you help me select a wine for a special occasion?",
-        "answer": "Our staff includes certified sommeliers who are happy to help you find the perfect bottle for any occasion."
+        "answer": "Absolutely! Our knowledgeable staff is happy to help you find the perfect bottle for any occasion, from casual dinners to celebrations."
       },
       {
-        "question": "Do you carry organic and biodynamic wines?",
-        "answer": "Yes, we have a dedicated section for organic, biodynamic, and natural wines from around the world."
-      },
-      {
-        "question": "Do you offer gift baskets?",
-        "answer": "We create custom gift baskets for any budget. Visit us in-store or call to discuss your needs."
+        "question": "Do you carry imported wines and spirits?",
+        "answer": "Yes, we have an excellent selection of imports from France, Italy, Japan, Scotland, and more, alongside premium California wines."
       }
     ],
     "reviews": [
       {
         "name": "Jennifer M.",
         "rating": 5,
-        "text": "Incredible wine selection! Found bottles here I couldn't find anywhere else in the city.",
+        "text": "Great selection and open late! Perfect when staying at nearby hotels.",
         "date": "2024-01-22"
       },
       {
         "name": "Robert T.",
         "rating": 5,
-        "text": "The staff recommendations are always spot-on. They really know their wines.",
+        "text": "The staff recommendations are always spot-on. My go-to in Nob Hill.",
         "date": "2024-02-15"
       },
       {
         "name": "Amanda H.",
         "rating": 4,
-        "text": "Beautiful store with a great atmosphere. Prices are reasonable for the quality.",
+        "text": "Convenient location near Union Square. Good prices for downtown.",
         "date": "2024-03-05"
       }
     ]
@@ -130,51 +130,51 @@
   "mmc-wine-spirit": {
     "id": "mmc-wine-spirit",
     "name": "MMC Wine & Spirit",
-    "tagline": "Fine wines & premium spirits",
-    "description": "Specializing in rare wines, premium spirits, and exceptional customer service for over 30 years.",
-    "headline": "Fine Wines & Rare Spirits",
+    "tagline": "Fine wines & premium spirits in Union Square",
+    "description": "Located on Sutter Street in the heart of San Francisco's Union Square district, MMC Wine & Spirit has been the destination for collectors and connoisseurs seeking rare wines and exceptional spirits. Walking distance from the Theater District, Chinatown, and luxury hotels, we specialize in hard-to-find Japanese whisky, single malt scotch, and boutique California wines. Our expert staff provides personalized recommendations for every palate and budget.",
+    "headline": "Union Square Fine Wines & Rare Spirits",
     "icon": "🥃",
     "address": {
-      "street": "789 Market Street",
+      "street": "615 Sutter St",
       "city": "San Francisco",
       "state": "CA",
-      "zip": "94103",
-      "full": "789 Market Street, San Francisco, CA 94103"
+      "zip": "94102",
+      "full": "615 Sutter St, San Francisco, CA 94102"
     },
-    "phone": "(415) 555-0300",
+    "phone": "(415) 474-4951",
     "hours": {
-      "weekday": "10:00 AM - 8:00 PM",
-      "weekend": "11:00 AM - 7:00 PM"
+      "weekday": "Mon: 10 AM - 11 PM, Tue: 10 AM - 10 PM, Wed-Thu: 10 AM - 11 PM, Fri: 10 AM - 12 AM",
+      "weekend": "Sat: 10 AM - 12 AM, Sun: 10 AM - 11 PM"
     },
     "spreadsheetId": "17lpkOLWIIeXz17sjTuGrAyQMNz3wcRsUCleuirLc2Bw",
     "url": "https://mmc-wine-spirits.vercel.app",
     "faqs": [
       {
         "question": "What are your store hours?",
-        "answer": "We're open Monday-Friday 10:00 AM - 8:00 PM, and Saturday-Sunday 11:00 AM - 7:00 PM."
+        "answer": "We're open Monday 10 AM - 11 PM, Tuesday 10 AM - 10 PM, Wednesday-Thursday 10 AM - 11 PM, Friday-Saturday 10 AM - 12 AM, and Sunday 10 AM - 11 PM."
+      },
+      {
+        "question": "Where are you located?",
+        "answer": "We're at 615 Sutter St in San Francisco's Union Square district, between Mason and Taylor, walking distance from the Theater District and major hotels."
+      },
+      {
+        "question": "Do you offer delivery?",
+        "answer": "We don't currently offer delivery. Visit us in-store to browse our extensive collection and get personalized recommendations from our expert staff."
       },
       {
         "question": "Do you specialize in any particular spirits?",
-        "answer": "We're known for our exceptional selection of single malt scotch, Japanese whisky, and small-batch bourbons."
+        "answer": "We're known for our exceptional selection of single malt scotch, Japanese whisky, and small-batch bourbons. We also carry rare and allocated releases."
       },
       {
         "question": "Can I pre-order rare bottles?",
-        "answer": "Yes! We maintain a waitlist for allocated and rare releases. Contact us to be added to our list."
-      },
-      {
-        "question": "Do you offer corporate accounts?",
-        "answer": "We work with restaurants, bars, and businesses. Contact us for wholesale pricing and account setup."
-      },
-      {
-        "question": "Do you ship nationwide?",
-        "answer": "We ship to most states where legal. Contact us for shipping rates and restrictions to your area."
+        "answer": "Yes! We maintain a waitlist for allocated and rare releases. Call us at (415) 474-4951 or visit the store to be added to our list."
       }
     ],
     "reviews": [
       {
         "name": "Thomas W.",
         "rating": 5,
-        "text": "The best whisky selection in San Francisco. Period. Staff is incredibly knowledgeable.",
+        "text": "The best whisky selection in Union Square. Staff is incredibly knowledgeable.",
         "date": "2024-01-30"
       },
       {
@@ -186,7 +186,7 @@
       {
         "name": "James P.",
         "rating": 5,
-        "text": "Outstanding service and selection. They helped me build my home bar collection.",
+        "text": "Outstanding service and selection. Perfect location near our hotel.",
         "date": "2024-03-15"
       }
     ]
