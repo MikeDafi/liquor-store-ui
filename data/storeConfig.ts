@@ -25,19 +25,19 @@ export const stores: StoreConfig[] = [
     id: 'home-service-market',
     name: 'Home Service Market',
     spreadsheetId: '1NH20t073dWNihFY49p5WYxiGTf0_ui1GBVN9UxPklh4',
-    url: 'https://home-service-market.vercel.app', // Update with actual URL
+    url: 'https://home-service-market.vercel.app',
   },
   {
     id: 'town-country-market',
     name: 'Town Country Market',
     spreadsheetId: '1__JWmXYb_2fbtMp1Fk7DSCXq6DNQGrFfsLQ4Pdj3emg',
-    url: 'https://town-country-market.vercel.app', // Update with actual URL
+    url: 'https://town-country-market.vercel.app',
   },
   {
     id: 'mmc-wine-spirit',
     name: 'MMC Wine & Spirit',
     spreadsheetId: '17lpkOLWIIeXz17sjTuGrAyQMNz3wcRsUCleuirLc2Bw',
-    url: 'https://mmc-wine-spirit.vercel.app', // Update with actual URL
+    url: 'https://mmc-wine-spirits.vercel.app',
   },
 ];
 
