@@ -1,0 +1,194 @@
+{
+  "home-service-market": {
+    "id": "home-service-market",
+    "name": "Home Service Market",
+    "tagline": "Your neighborhood liquor & convenience store",
+    "description": "Premium spirits, wine, sake, craft beer & everyday essentials. Serving the community since 1998.",
+    "headline": "Full Service Liquor & Market",
+    "icon": "🏪",
+    "address": {
+      "street": "123 Main Street",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94102",
+      "full": "123 Main Street, San Francisco, CA 94102"
+    },
+    "phone": "(415) 555-0100",
+    "hours": {
+      "weekday": "8:00 AM - 10:00 PM",
+      "weekend": "9:00 AM - 11:00 PM"
+    },
+    "spreadsheetId": "1NH20t073dWNihFY49p5WYxiGTf0_ui1GBVN9UxPklh4",
+    "url": "https://home-service-market.vercel.app",
+    "faqs": [
+      {
+        "question": "What are your store hours?",
+        "answer": "We're open Monday-Friday 8:00 AM - 10:00 PM, and Saturday-Sunday 9:00 AM - 11:00 PM."
+      },
+      {
+        "question": "Do you offer delivery?",
+        "answer": "Yes! We offer local delivery within a 5-mile radius. Orders over $50 qualify for free delivery."
+      },
+      {
+        "question": "Do you have a loyalty program?",
+        "answer": "Yes, join our rewards program and earn points on every purchase. Sign up in-store or online."
+      },
+      {
+        "question": "Can I special order products?",
+        "answer": "Absolutely! If we don't have something in stock, we can usually special order it for you within 3-5 business days."
+      },
+      {
+        "question": "Do you carry local craft beers?",
+        "answer": "Yes! We have an extensive selection of local San Francisco Bay Area craft beers and rotate seasonal offerings."
+      }
+    ],
+    "reviews": [
+      {
+        "name": "Michael R.",
+        "rating": 5,
+        "text": "Best selection of whiskey in the neighborhood. The staff really knows their stuff!",
+        "date": "2024-01-15"
+      },
+      {
+        "name": "Sarah L.",
+        "rating": 5,
+        "text": "Love this place! Great prices and they always have what I'm looking for.",
+        "date": "2024-02-20"
+      },
+      {
+        "name": "David K.",
+        "rating": 4,
+        "text": "Convenient location and friendly service. My go-to spot for wine.",
+        "date": "2024-03-10"
+      }
+    ]
+  },
+  "town-country-market": {
+    "id": "town-country-market",
+    "name": "Town Country Market",
+    "tagline": "Quality spirits & fine wines since 1985",
+    "description": "A curated selection of premium wines, craft spirits, and gourmet provisions for the discerning customer.",
+    "headline": "Premium Wine & Spirits",
+    "icon": "🍷",
+    "address": {
+      "street": "456 Oak Avenue",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94110",
+      "full": "456 Oak Avenue, San Francisco, CA 94110"
+    },
+    "phone": "(415) 555-0200",
+    "hours": {
+      "weekday": "9:00 AM - 9:00 PM",
+      "weekend": "10:00 AM - 8:00 PM"
+    },
+    "spreadsheetId": "1__JWmXYb_2fbtMp1Fk7DSCXq6DNQGrFfsLQ4Pdj3emg",
+    "url": "https://town-country-market.vercel.app",
+    "faqs": [
+      {
+        "question": "What are your store hours?",
+        "answer": "We're open Monday-Friday 9:00 AM - 9:00 PM, and Saturday-Sunday 10:00 AM - 8:00 PM."
+      },
+      {
+        "question": "Do you offer wine tastings?",
+        "answer": "Yes! We host wine tastings every Saturday from 2-5 PM. Check our events calendar for featured wineries."
+      },
+      {
+        "question": "Can you help me select a wine for a special occasion?",
+        "answer": "Our staff includes certified sommeliers who are happy to help you find the perfect bottle for any occasion."
+      },
+      {
+        "question": "Do you carry organic and biodynamic wines?",
+        "answer": "Yes, we have a dedicated section for organic, biodynamic, and natural wines from around the world."
+      },
+      {
+        "question": "Do you offer gift baskets?",
+        "answer": "We create custom gift baskets for any budget. Visit us in-store or call to discuss your needs."
+      }
+    ],
+    "reviews": [
+      {
+        "name": "Jennifer M.",
+        "rating": 5,
+        "text": "Incredible wine selection! Found bottles here I couldn't find anywhere else in the city.",
+        "date": "2024-01-22"
+      },
+      {
+        "name": "Robert T.",
+        "rating": 5,
+        "text": "The staff recommendations are always spot-on. They really know their wines.",
+        "date": "2024-02-15"
+      },
+      {
+        "name": "Amanda H.",
+        "rating": 4,
+        "text": "Beautiful store with a great atmosphere. Prices are reasonable for the quality.",
+        "date": "2024-03-05"
+      }
+    ]
+  },
+  "mmc-wine-spirit": {
+    "id": "mmc-wine-spirit",
+    "name": "MMC Wine & Spirit",
+    "tagline": "Fine wines & premium spirits",
+    "description": "Specializing in rare wines, premium spirits, and exceptional customer service for over 30 years.",
+    "headline": "Fine Wines & Rare Spirits",
+    "icon": "🥃",
+    "address": {
+      "street": "789 Market Street",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94103",
+      "full": "789 Market Street, San Francisco, CA 94103"
+    },
+    "phone": "(415) 555-0300",
+    "hours": {
+      "weekday": "10:00 AM - 8:00 PM",
+      "weekend": "11:00 AM - 7:00 PM"
+    },
+    "spreadsheetId": "17lpkOLWIIeXz17sjTuGrAyQMNz3wcRsUCleuirLc2Bw",
+    "url": "https://mmc-wine-spirits.vercel.app",
+    "faqs": [
+      {
+        "question": "What are your store hours?",
+        "answer": "We're open Monday-Friday 10:00 AM - 8:00 PM, and Saturday-Sunday 11:00 AM - 7:00 PM."
+      },
+      {
+        "question": "Do you specialize in any particular spirits?",
+        "answer": "We're known for our exceptional selection of single malt scotch, Japanese whisky, and small-batch bourbons."
+      },
+      {
+        "question": "Can I pre-order rare bottles?",
+        "answer": "Yes! We maintain a waitlist for allocated and rare releases. Contact us to be added to our list."
+      },
+      {
+        "question": "Do you offer corporate accounts?",
+        "answer": "We work with restaurants, bars, and businesses. Contact us for wholesale pricing and account setup."
+      },
+      {
+        "question": "Do you ship nationwide?",
+        "answer": "We ship to most states where legal. Contact us for shipping rates and restrictions to your area."
+      }
+    ],
+    "reviews": [
+      {
+        "name": "Thomas W.",
+        "rating": 5,
+        "text": "The best whisky selection in San Francisco. Period. Staff is incredibly knowledgeable.",
+        "date": "2024-01-30"
+      },
+      {
+        "name": "Lisa C.",
+        "rating": 5,
+        "text": "Found a rare Japanese whisky I'd been hunting for months. This is my new favorite store!",
+        "date": "2024-02-28"
+      },
+      {
+        "name": "James P.",
+        "rating": 5,
+        "text": "Outstanding service and selection. They helped me build my home bar collection.",
+        "date": "2024-03-15"
+      }
+    ]
+  }
+}
