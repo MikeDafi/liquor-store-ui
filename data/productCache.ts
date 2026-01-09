@@ -44,6 +44,33 @@ const categoryImages: Record<string, string> = {
 const defaultImage = 'https://images.unsplash.com/photo-1690248387895-2db2a8072ecc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsaXF1b3IlMjBzdG9yZSUyMGludGVyaW9yfGVufDF8fHx8MTc2NzUzODQ2Nnww&ixlib=rb-4.1.0&q=80&w=1080';
 
 /**
+ * Parse a single CSV line into fields, handling quoted values
+ */
+function parseCSVLine(line: string): string[] {
+  const fields: string[] = [];
+  let current = '';
+  let inQuotes = false;
+  
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      fields.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  
+  // Don't forget the last field
+  fields.push(current.trim());
+  
+  return fields;
+}
+
+/**
  * Parse CSV content into product array
  * Supports two formats:
  * - Google Sheets format: Available, Name, Code, Price, Category
@@ -59,17 +86,15 @@ function parseCSV(csvContent: string): Product[] {
   const headerLine = lines[0].toLowerCase();
   const hasAvailableColumn = headerLine.includes('available');
   
+  console.log('CSV parsing - hasAvailableColumn:', hasAvailableColumn, 'total lines:', lines.length);
+  
   // Skip header row
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i];
     if (!line.trim()) continue;
     
-    // Handle CSV with quotes (for fields containing commas)
-    const matches = line.match(/("([^"]*)"|[^,]*)/g);
-    if (!matches) continue;
-    
-    // Clean up matches - remove quotes and trim
-    const fields = matches.map(m => m.replace(/^"|"$/g, '').trim());
+    // Parse CSV line properly handling quotes
+    const fields = parseCSVLine(line);
     
     let name: string, code: string, category: string;
     
