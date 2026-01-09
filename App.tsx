@@ -8,7 +8,7 @@ import { CategoryPage } from './pages/CategoryPage';
 import { ProductPage } from './pages/ProductPage';
 import { FAQPage } from './pages/FAQPage';
 import { SearchPage } from './pages/SearchPage';
-import { locations } from './data/locations';
+import { getCurrentStore } from './data/storeConfig';
 
 type Page = 
   | { type: 'home' }
@@ -19,7 +19,8 @@ type Page =
   | { type: 'search'; query?: string };
 
 function App() {
-  const [selectedLocation, setSelectedLocation] = useState(locations[0].id);
+  const currentStore = getCurrentStore();
+  const [selectedLocation, setSelectedLocation] = useState(currentStore.id);
   const [currentPage, setCurrentPage] = useState<Page>({ type: 'home' });
 
   // Simple client-side routing
@@ -88,11 +89,9 @@ function App() {
   };
 
   const handleDirectionsClick = () => {
-    const location = locations.find(loc => loc.id === selectedLocation);
-    if (location) {
-      const address = encodeURIComponent(location.address);
-      window.open(`https://maps.google.com/?q=${address}`, '_blank');
-    }
+    const store = getCurrentStore();
+    const query = encodeURIComponent(`${store.name}, ${store.address.full}`);
+    window.open(`https://maps.google.com/?q=${query}`, '_blank');
   };
 
   const renderPage = () => {

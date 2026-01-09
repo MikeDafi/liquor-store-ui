@@ -22,7 +22,7 @@ export function Hero({ onSearchClick, onDirectionsClick }: HeroProps) {
       <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-20">
         <div className="max-w-3xl">
           <h1 className="text-3xl md:text-5xl mb-4">
-            {currentStore.headline || currentStore.name}
+            {currentStore.name}
           </h1>
           <p className="text-lg md:text-xl text-neutral-300 mb-8">
             {currentStore.description}

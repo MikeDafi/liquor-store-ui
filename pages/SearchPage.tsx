@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Search, X, Loader2, ChevronDown } from 'lucide-react';
+import { Search, X, Loader2, ChevronDown, Filter } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { useSearchProducts } from '../hooks/useProductCache';
+import { categories } from '../data/products';
 
 interface SearchPageProps {
   initialQuery?: string;
@@ -10,6 +11,8 @@ interface SearchPageProps {
 export function SearchPage({ initialQuery = '' }: SearchPageProps) {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [showFilters, setShowFilters] = useState(false);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   
   // Debounce search query
@@ -23,13 +26,18 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
   
   // Use paginated search
   const { 
-    products: results, 
+    products: allResults, 
     loading, 
     error, 
     pagination, 
     loadMore,
     cacheInfo 
   } = useSearchProducts(debouncedQuery);
+
+  // Filter by category
+  const results = selectedCategory 
+    ? allResults.filter(p => p.category === selectedCategory)
+    : allResults;
 
   // Infinite scroll observer
   const handleObserver = useCallback((entries: IntersectionObserverEntry[]) => {
@@ -54,6 +62,9 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
 
     return () => observer.disconnect();
   }, [handleObserver]);
+
+  // Get unique categories from results for filtering
+  const availableCategories = [...new Set(allResults.map(p => p.category))];
 
   return (
     <div>
@@ -91,6 +102,82 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
         </div>
       </div>
 
+      {/* Category Filters */}
+      <div className="bg-white border-b border-neutral-200 py-4">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center gap-4 flex-wrap">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors lg:hidden"
+            >
+              <Filter className="w-4 h-4" />
+              Filters
+              {selectedCategory && <span className="bg-neutral-900 text-white text-xs px-2 py-0.5 rounded-full">1</span>}
+            </button>
+
+            {/* Desktop category pills */}
+            <div className="hidden lg:flex items-center gap-2 flex-wrap">
+              <span className="text-sm text-neutral-600 mr-2">Category:</span>
+              <button
+                onClick={() => setSelectedCategory('')}
+                className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                  selectedCategory === '' 
+                    ? 'bg-neutral-900 text-white' 
+                    : 'bg-neutral-100 hover:bg-neutral-200'
+                }`}
+              >
+                All
+              </button>
+              {categories.map(cat => (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                    selectedCategory === cat.id 
+                      ? 'bg-neutral-900 text-white' 
+                      : 'bg-neutral-100 hover:bg-neutral-200'
+                  }`}
+                >
+                  {cat.icon} {cat.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile filters dropdown */}
+          {showFilters && (
+            <div className="lg:hidden mt-4 p-4 bg-neutral-50 rounded-lg">
+              <div className="mb-3 text-sm font-medium">Category</div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => { setSelectedCategory(''); setShowFilters(false); }}
+                  className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                    selectedCategory === '' 
+                      ? 'bg-neutral-900 text-white' 
+                      : 'bg-white border border-neutral-300 hover:bg-neutral-100'
+                  }`}
+                >
+                  All Categories
+                </button>
+                {categories.map(cat => (
+                  <button
+                    key={cat.id}
+                    onClick={() => { setSelectedCategory(cat.id); setShowFilters(false); }}
+                    className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                      selectedCategory === cat.id 
+                        ? 'bg-neutral-900 text-white' 
+                        : 'bg-white border border-neutral-300 hover:bg-neutral-100'
+                    }`}
+                  >
+                    {cat.icon} {cat.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Results */}
       <section className="max-w-7xl mx-auto px-4 py-12">
         <div className="mb-6">
@@ -98,7 +185,13 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
             {error ? (
               <span className="text-red-600">Error searching products</span>
             ) : debouncedQuery ? (
-              <>Found {pagination.total} product{pagination.total !== 1 ? 's' : ''} for "{debouncedQuery}"</>
+              <>
+                Found {results.length} product{results.length !== 1 ? 's' : ''} 
+                {selectedCategory && ` in ${categories.find(c => c.id === selectedCategory)?.name || selectedCategory}`}
+                {' '}for "{debouncedQuery}"
+              </>
+            ) : selectedCategory ? (
+              <>Showing {results.length} products in {categories.find(c => c.id === selectedCategory)?.name || selectedCategory}</>
             ) : (
               <>Showing {results.length} of {pagination.total} products</>
             )}
@@ -122,17 +215,17 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
                 </div>
               )}
               
-              {!loading && pagination.hasMore && (
+              {!loading && pagination.hasMore && !selectedCategory && (
                 <button
                   onClick={loadMore}
                   className="flex items-center gap-2 px-6 py-3 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
                 >
                   <ChevronDown className="w-5 h-5" />
-                  Load More ({pagination.total - results.length} remaining)
+                  Load More ({pagination.total - allResults.length} remaining)
                 </button>
               )}
               
-              {!loading && !pagination.hasMore && results.length > 0 && pagination.total > pagination.pageSize && (
+              {!loading && !pagination.hasMore && results.length > 0 && pagination.total > pagination.pageSize && !selectedCategory && (
                 <div className="text-neutral-500 text-sm">
                   All {pagination.total} results loaded
                 </div>
@@ -150,8 +243,19 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
             <Search className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
             <h2 className="text-xl mb-2">No products found</h2>
             <p className="text-neutral-600 mb-6">
-              Try adjusting your search or browse our categories
+              {selectedCategory 
+                ? `No products in ${categories.find(c => c.id === selectedCategory)?.name || selectedCategory}. Try a different category.`
+                : 'Try adjusting your search or browse our categories'
+              }
             </p>
+            {selectedCategory && (
+              <button
+                onClick={() => setSelectedCategory('')}
+                className="inline-block px-6 py-3 border border-neutral-900 rounded-lg hover:bg-neutral-900 hover:text-white transition-colors mr-4"
+              >
+                Clear Filter
+              </button>
+            )}
             <a
               href="/"
               className="inline-block px-6 py-3 border border-neutral-900 rounded-lg hover:bg-neutral-900 hover:text-white transition-colors"
