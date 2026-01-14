@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MobileBottomBar } from './components/MobileBottomBar';
@@ -136,6 +137,7 @@ function App() {
         selectedLocation={selectedLocation}
         onSearchClick={handleSearchClick}
       />
+      <Analytics />
     </div>
   );
 }

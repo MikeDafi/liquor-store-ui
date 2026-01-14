@@ -96,3 +96,4 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
   );
 }
 
+
