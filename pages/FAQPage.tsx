@@ -1,7 +1,10 @@
 import { FAQSection } from '../components/FAQSection';
 import { Phone, Mail } from 'lucide-react';
+import { getCurrentStore } from '../data/storeConfig';
 
 export function FAQPage() {
+  const currentStore = getCurrentStore();
+  
   return (
     <div>
       {/* Hero */}
@@ -29,11 +32,11 @@ export function FAQPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:(415) 555-0100"
+                href={`tel:${currentStore.phone}`}
                 className="flex items-center justify-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors"
               >
                 <Phone className="w-5 h-5" />
-                Call Union Square
+                Call {currentStore.name}
               </a>
               <a
                 href="mailto:info@sfliquor.com"

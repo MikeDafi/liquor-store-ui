@@ -36,6 +36,7 @@ const categoryImages: Record<string, string> = {
   tequila: 'https://images.unsplash.com/photo-1516535794938-6063878f08cc?w=400&q=80',
   beer: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400&q=80',
   sake: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80',
+  food: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&q=80',
   pharmacy: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=400&q=80',
   dairy: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=400&q=80',
 };
@@ -568,7 +569,7 @@ export async function getCategories(): Promise<typeof categories> {
   
   // Return categories that have products, plus existing categories
   return categories.filter(cat => 
-    productCategories.has(cat.id) || cat.id === 'pharmacy' || cat.id === 'dairy'
+    productCategories.has(cat.id) || cat.id === 'pharmacy' || cat.id === 'dairy' || cat.id === 'food'
   );
 }
 
