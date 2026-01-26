@@ -1,6 +1,7 @@
 import { MapPin, Phone, ChevronLeft } from 'lucide-react';
 import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
+import { ProductSEO } from '../components/SEOHead';
 import { storeConfig } from '../config/store';
 
 interface ProductPageProps {
@@ -24,6 +25,13 @@ export function ProductPage({ productId }: ProductPageProps) {
 
   return (
     <div>
+      <ProductSEO
+        productName={product.name}
+        productDescription={product.description}
+        productImage={product.image}
+        productCategory={product.category}
+      />
+      
       {/* Breadcrumb */}
       <div className="bg-neutral-50 border-b border-neutral-200 py-4">
         <div className="max-w-7xl mx-auto px-4">

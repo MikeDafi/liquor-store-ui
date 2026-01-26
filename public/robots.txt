@@ -1,0 +1,16 @@
+# Robots.txt for Liquor Store UI
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://home-service-market.vercel.app/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Block search result pages from indexing
+Disallow: /search
+
+# Block any API endpoints
+Disallow: /api/

@@ -1,10 +1,13 @@
 import { FAQSection } from '../components/FAQSection';
+import { FAQPageSchema } from '../components/SchemaOrg';
 import { Phone, Mail } from 'lucide-react';
 import { storeConfig } from '../config/store';
+import { faqs } from '../data/faqs';
 
 export function FAQPage() {
   return (
     <div>
+      <FAQPageSchema faqs={faqs} />
       {/* Hero */}
       <div className="bg-neutral-900 text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4">

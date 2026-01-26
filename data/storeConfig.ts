@@ -38,6 +38,7 @@ export interface StoreReview {
 export interface StoreConfig {
   id: string;
   name: string;
+  since: string;
   tagline: string;
   description: string;
   headline: string;

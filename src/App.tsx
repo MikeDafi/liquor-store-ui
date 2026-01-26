@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MobileBottomBar } from './components/MobileBottomBar';
+import { LocalBusinessSchema, WebSiteSchema } from './components/SchemaOrg';
+import { SEOHead } from './components/SEOHead';
 import { HomePage } from './pages/HomePage';
 import { LocationPage } from './pages/LocationPage';
 import { CategoryPage } from './pages/CategoryPage';
@@ -116,6 +118,13 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      {/* SEO: Meta tags, Open Graph, Twitter Cards */}
+      <SEOHead />
+      
+      {/* Schema.org structured data for SEO */}
+      <LocalBusinessSchema />
+      <WebSiteSchema />
+      
       <Header
         onSearch={handleSearch}
       />

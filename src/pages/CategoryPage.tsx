@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Filter } from 'lucide-react';
+import { Filter, Phone, MapPin } from 'lucide-react';
 import { products, categories } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
+import { CategorySEO } from '../components/SEOHead';
+import { storeConfig } from '../config/store';
 
 interface CategoryPageProps {
   categoryId: string;
@@ -50,6 +52,11 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
 
   return (
     <div>
+      <CategorySEO 
+        categoryName={category.name} 
+        categoryDescription={getCategoryDescription()} 
+      />
+      
       {/* Hero */}
       <div className="bg-neutral-900 text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4">
@@ -126,8 +133,21 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
 
                 {/* Location Info */}
                 <div className="pt-6 border-t border-neutral-200">
-                  <div className="text-sm text-neutral-600">
+                  <div className="text-sm text-neutral-600 mb-4">
                     All products shown are available in-store. Call ahead to confirm specific items.
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-start gap-2">
+                      <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-neutral-500" />
+                      <span className="text-neutral-700">{storeConfig.address}</span>
+                    </div>
+                    <a
+                      href={`tel:${storeConfig.phone}`}
+                      className="flex items-center gap-2 text-neutral-900 hover:underline"
+                    >
+                      <Phone className="w-4 h-4 flex-shrink-0" />
+                      {storeConfig.phone}
+                    </a>
                   </div>
                 </div>
               </div>
@@ -162,6 +182,31 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
           </div>
         </div>
       </div>
+
+      {/* Store Contact Banner */}
+      <section className="bg-neutral-900 text-white py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-center md:text-left">
+              <h3 className="text-lg mb-1">Questions about our {category?.name.toLowerCase()}?</h3>
+              <p className="text-neutral-400 text-sm">Call us or visit the store for personalized recommendations</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-sm text-neutral-300">
+                <MapPin className="w-4 h-4" />
+                <span>{storeConfig.address}</span>
+              </div>
+              <a
+                href={`tel:${storeConfig.phone}`}
+                className="flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 rounded-lg hover:bg-neutral-100 transition-colors"
+              >
+                <Phone className="w-4 h-4" />
+                {storeConfig.phone}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

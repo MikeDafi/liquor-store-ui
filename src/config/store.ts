@@ -116,9 +116,9 @@ export const storeConfig: StoreConfig = {
   
   // SEO
   seo: {
-    title: import.meta.env.VITE_SEO_TITLE || 'Local Market & Liquor Store | San Francisco',
+    title: import.meta.env.VITE_SEO_TITLE || '#1 Safest Liquor Store in San Francisco',
     description: import.meta.env.VITE_SEO_DESCRIPTION || 'Your neighborhood market with sake, beer, wine, spirits, pharmacy and more in San Francisco.',
-    keywords: (import.meta.env.VITE_SEO_KEYWORDS || 'liquor store, market, san francisco, sake, beer, wine, spirits').split(',').map((k: string) => k.trim()),
+    keywords: (import.meta.env.VITE_SEO_KEYWORDS || 'wine, beer, spirits, liquor, vodka, whiskey, bourbon, scotch, tequila, rum, gin, brandy, cognac, mezcal, sake, soju, champagne, prosecco, vermouth, aperitif, red wine, white wine, rosé, sparkling, pinot, cabernet, chardonnay, merlot, riesling, moscato, craft beer, domestic beer, imported beer, IPA, lager, stout, seltzer, cider, malt, coolers, mixers, ice, cups, kegs, mini bottles, handles, fifths, pints, cold beer, delivery, liquor store san francisco').split(',').map((k: string) => k.trim()),
   },
 };
 

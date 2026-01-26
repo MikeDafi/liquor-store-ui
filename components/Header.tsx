@@ -31,7 +31,7 @@ export function Header({ onSearch }: HeaderProps) {
               <span className="text-2xl">🥃</span>
               <div>
                 <div className="text-neutral-900">{currentStore.name}</div>
-                <div className="text-xs text-neutral-600 hidden sm:block">Since 1998</div>
+                <div className="text-xs text-neutral-600 hidden sm:block">Since {currentStore.since}</div>
               </div>
             </div>
           </a>
