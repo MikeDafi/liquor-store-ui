@@ -48,6 +48,7 @@ export interface StoreConfig {
   hours: StoreHours;
   spreadsheetId: string;
   url: string;
+  touristFavorites: string[];
   faqs: StoreFAQ[];
   reviews: StoreReview[];
 }

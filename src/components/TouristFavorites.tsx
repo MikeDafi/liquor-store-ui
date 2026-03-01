@@ -1,11 +1,23 @@
 import { ProductCard } from './ProductCard';
 import { useProducts } from '../hooks/useSheetData';
+import { getCurrentStore } from '../../data/storeConfig';
 
 export function TouristFavorites() {
   const { products, loading } = useProducts();
+  const store = getCurrentStore();
   
-  // Show first 4 products as "favorites" since sheet doesn't have isTouristFavorite column
-  const touristProducts = products.slice(0, 4);
+  // Get tourist favorites by matching UPC codes from store config
+  const touristFavoriteUPCs = new Set(store.touristFavorites || []);
+  
+  // Find products matching the store's tourist favorites UPCs
+  let touristProducts = products.filter(p => p.code && touristFavoriteUPCs.has(p.code));
+  
+  // If no matches found (or not enough), fall back to first 4 products
+  if (touristProducts.length < 4) {
+    const existingIds = new Set(touristProducts.map(p => p.id));
+    const fallbackProducts = products.filter(p => !existingIds.has(p.id)).slice(0, 4 - touristProducts.length);
+    touristProducts = [...touristProducts, ...fallbackProducts];
+  }
 
   if (loading) {
     return (
