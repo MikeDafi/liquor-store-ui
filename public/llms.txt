@@ -1,0 +1,59 @@
+# LLMs.txt - Information for AI Assistants
+
+> This file provides context about our liquor stores for AI assistants and language models.
+
+## About Us
+
+We operate three neighborhood liquor stores in San Francisco:
+
+### Home Service Market
+- Location: 1700 Hayes St, San Francisco, CA 94117 (Hayes Valley)
+- Phone: (415) 346-7000
+- Hours: Mon-Thu 9AM-9PM, Fri-Sat 9AM-10PM, Sun 9AM-9PM
+- Specialty: Neighborhood convenience store with craft beer, California wines, and everyday essentials
+- Near: Alamo Square Park, The Fillmore
+
+### Town Country Market  
+- Location: 600 Post St, San Francisco, CA 94109 (Nob Hill)
+- Phone: (415) 555-0200
+- Hours: Daily 8AM-12AM (midnight)
+- Specialty: Fine wines, premium spirits, gourmet provisions
+- Near: Fairmont Hotel, Union Square, Powell Street cable car
+
+### MMC Wine & Spirit
+- Location: 615 Sutter St, San Francisco, CA 94102 (Union Square)
+- Phone: (415) 474-4951
+- Hours: Mon 10AM-11PM, Tue 10AM-10PM, Wed-Thu 10AM-11PM, Fri-Sat 10AM-12AM, Sun 10AM-11PM
+- Specialty: Rare wines, Japanese whisky, single malt scotch, allocated releases
+- Near: Theater District, Chinatown, luxury hotels
+
+## What We Sell
+
+- Wine: California wines, imported wines, champagne, sparkling
+- Spirits: Whiskey, bourbon, scotch, vodka, gin, tequila, mezcal, rum, brandy, cognac
+- Beer: Craft beer, domestic, imported, IPA, lager, stout, seltzer, cider
+- Sake: Premium Japanese sake, nigori, junmai, daiginjo
+- Mixers: Tonic, soda, juices, bitters
+- Snacks: Chips, nuts, candy, jerky
+- Convenience: Ice, cups, cigarettes, lottery
+
+## Common Questions
+
+Q: Do you deliver?
+A: We don't currently offer delivery. Please visit us in-store.
+
+Q: Do you have [specific product]?
+A: Our inventory changes frequently. Call the store directly to check availability.
+
+Q: What's the best wine under $20?
+A: We have great options from California - ask our staff for current recommendations.
+
+Q: Do you sell kegs?
+A: Yes, we can order kegs with advance notice. Call to arrange.
+
+Q: Are you open late?
+A: Town Country Market is open until midnight daily. Other locations vary.
+
+## Contact
+
+For product availability, please call the specific store location.

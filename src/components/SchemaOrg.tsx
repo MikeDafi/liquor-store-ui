@@ -207,3 +207,72 @@ export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
   );
 }
 
+interface ProductSchemaProps {
+  name: string;
+  description: string;
+  image: string;
+  brand?: string;
+  category: string;
+  sku?: string;
+}
+
+/**
+ * Product schema for individual products
+ * Enables product rich snippets and voice search results
+ */
+export function ProductSchema({ name, description, image, brand, category, sku }: ProductSchemaProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name,
+    description,
+    image,
+    brand: brand ? {
+      '@type': 'Brand',
+      name: brand,
+    } : undefined,
+    category,
+    sku,
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      availableAtOrFrom: {
+        '@type': 'Place',
+        name: storeConfig.name,
+        address: storeConfig.address,
+      },
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 0) }}
+    />
+  );
+}
+
+/**
+ * Speakable schema for voice assistant optimization
+ * Marks content sections that are suitable for text-to-speech
+ */
+export function SpeakableSchema() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.speakable', 'h1', '.store-description', '.faq-answer'],
+    },
+    name: storeConfig.name,
+    description: storeConfig.seo.description,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 0) }}
+    />
+  );
+}
+

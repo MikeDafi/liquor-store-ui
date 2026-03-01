@@ -1,6 +1,7 @@
 import { MapPin, Phone, ChevronLeft } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { ProductSEO } from '../components/SEOHead';
+import { ProductSchema } from '../components/SchemaOrg';
 import { storeConfig } from '../config/store';
 import { useProducts } from '../hooks/useSheetData';
 
@@ -39,6 +40,14 @@ export function ProductPage({ productId }: ProductPageProps) {
         productDescription={product.description}
         productImage={product.image}
         productCategory={product.category}
+      />
+      <ProductSchema
+        name={product.name}
+        description={product.description}
+        image={product.image}
+        brand={product.brand}
+        category={product.category}
+        sku={product.code}
       />
       
       {/* Breadcrumb */}

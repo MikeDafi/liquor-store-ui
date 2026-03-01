@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MobileBottomBar } from './components/MobileBottomBar';
-import { LocalBusinessSchema, WebSiteSchema } from './components/SchemaOrg';
+import { LocalBusinessSchema, WebSiteSchema, SpeakableSchema } from './components/SchemaOrg';
 import { SEOHead } from './components/SEOHead';
 import { HomePage } from './pages/HomePage';
 import { LocationPage } from './pages/LocationPage';
@@ -124,6 +124,7 @@ function App() {
       {/* Schema.org structured data for SEO */}
       <LocalBusinessSchema />
       <WebSiteSchema />
+      <SpeakableSchema />
       
       <Header
         onSearch={handleSearch}
