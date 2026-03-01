@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Filter, Phone, MapPin } from 'lucide-react';
-import { products, categories } from '../data/products';
+import { categories } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { CategorySEO } from '../components/SEOHead';
 import { storeConfig } from '../config/store';
+import { useProducts } from '../hooks/useSheetData';
 
 interface CategoryPageProps {
   categoryId: string;
@@ -12,9 +13,10 @@ interface CategoryPageProps {
 export function CategoryPage({ categoryId }: CategoryPageProps) {
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('all');
   const [showFilters, setShowFilters] = useState(false);
+  const { products, loading } = useProducts();
 
   const category = categories.find(cat => cat.id === categoryId);
-  const categoryProducts = products.filter(p => p.category === categoryId);
+  const categoryProducts = products.filter(p => p.category.toLowerCase() === categoryId.toLowerCase());
   
   // Get unique subcategories
   const subcategories = Array.from(
@@ -32,6 +34,14 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
         <h1>Category not found</h1>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="text-center text-neutral-600">Loading products...</div>
       </div>
     );
   }

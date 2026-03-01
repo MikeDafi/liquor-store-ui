@@ -1,16 +1,32 @@
 /**
- * Image Cache with Open Food Facts API
- * - Stores image URLs in localStorage permanently (no expiry)
- * - Only evicts images when product is removed from inventory
- * - Free: localStorage + Open Food Facts API
+ * Image Cache with Server-Side Caching via /api/product-image
+ * 
+ * Architecture:
+ * 1. Check localStorage for cached URLs (instant)
+ * 2. If not cached, call /api/product-image which:
+ *    - Checks Upstash Redis cache
+ *    - Tries UPC Item DB (rate limited)
+ *    - Falls back to Open Food Facts
+ *    - Caches result in Redis for future requests
+ * 3. Store result in localStorage for instant access
+ * 
+ * This gives us:
+ * - SEO-friendly server-side image URLs
+ * - Progressive DB population via user browsing
+ * - Graceful fallbacks when APIs are rate limited
  */
 
-const IMAGE_CACHE_KEY = 'product_image_cache';
-const OPEN_FOOD_FACTS_API = 'https://world.openfoodfacts.org/api/v0/product';
+const IMAGE_CACHE_KEY = 'product_image_cache_v2';
+
+// Use production API in dev mode since Vercel serverless functions don't run locally
+const PRODUCT_IMAGE_API = import.meta.env.DEV 
+  ? 'https://liquor-store-ui.vercel.app/api/product-image'
+  : '/api/product-image';
 
 interface ImageCacheEntry {
-  imageUrl: string | null;
-  found: boolean;
+  imageUrl: string;
+  source: 'upcitemdb' | 'openfoodfacts' | 'fallback';
+  fetchedAt: number;
 }
 
 interface ImageCache {
@@ -27,6 +43,7 @@ const CATEGORY_FALLBACK_IMAGES: Record<string, string> = {
   sake: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80',
   pharmacy: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=400&q=80',
   dairy: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=400&q=80',
+  food: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&q=80',
 };
 
 const DEFAULT_FALLBACK = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop&crop=center';
@@ -62,33 +79,35 @@ export function getCategoryFallbackImage(category: string): string {
 }
 
 /**
- * Query Open Food Facts API for product image
+ * Query the server-side API for product image
+ * The API handles:
+ * - Redis caching
+ * - UPC Item DB lookup (with rate limit handling)
+ * - Open Food Facts fallback
+ * - Category fallback images
  */
-async function queryOpenFoodFacts(barcode: string): Promise<string | null> {
+async function queryProductImageAPI(barcode: string, category: string): Promise<{ imageUrl: string; source: 'upcitemdb' | 'openfoodfacts' | 'fallback' }> {
   try {
     const cleanBarcode = barcode.replace(/\D/g, '');
     if (!cleanBarcode || cleanBarcode.length < 8) {
-      return null;
+      return { imageUrl: getCategoryFallbackImage(category), source: 'fallback' };
     }
 
-    const response = await fetch(`${OPEN_FOOD_FACTS_API}/${cleanBarcode}.json`);
-    if (!response.ok) return null;
+    const response = await fetch(`${PRODUCT_IMAGE_API}?upc=${cleanBarcode}&category=${encodeURIComponent(category)}`);
+    
+    if (!response.ok) {
+      console.warn('Product image API error:', response.status);
+      return { imageUrl: getCategoryFallbackImage(category), source: 'fallback' };
+    }
 
     const data = await response.json();
-    
-    if (data.status === 1 && data.product) {
-      return (
-        data.product.image_front_url ||
-        data.product.image_front_small_url ||
-        data.product.image_url ||
-        data.product.image_small_url ||
-        null
-      );
-    }
-    
-    return null;
-  } catch {
-    return null;
+    return {
+      imageUrl: data.url || getCategoryFallbackImage(category),
+      source: data.source || 'fallback',
+    };
+  } catch (error) {
+    console.warn('Product image API fetch failed:', error);
+    return { imageUrl: getCategoryFallbackImage(category), source: 'fallback' };
   }
 }
 
@@ -105,31 +124,41 @@ export function getProductImage(
   const cache = getImageCache();
   const entry = cache[productCode];
 
-  // If cached with image, return it
-  if (entry?.found && entry.imageUrl) {
-    return entry.imageUrl;
+  // If cached locally, return it (even fallbacks are cached to avoid re-fetching)
+  if (entry?.imageUrl) {
+    // Check if cache is less than 7 days old
+    const cacheAge = Date.now() - (entry.fetchedAt || 0);
+    const maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
+    
+    if (cacheAge < maxAge) {
+      return entry.imageUrl;
+    }
   }
 
-  // If already queried and not found, return fallback
-  if (entry && !entry.found) {
-    return fallback;
-  }
-
-  // Not in cache - query API in background
-  queryOpenFoodFacts(productCode).then(imageUrl => {
+  // Not in cache or cache expired - query API in background
+  queryProductImageAPI(productCode, category).then(result => {
     const newCache = getImageCache();
     newCache[productCode] = {
-      imageUrl,
-      found: !!imageUrl,
+      imageUrl: result.imageUrl,
+      source: result.source,
+      fetchedAt: Date.now(),
     };
     saveImageCache(newCache);
 
-    if (imageUrl && onImageLoaded) {
-      onImageLoaded(imageUrl);
+    // Only call callback if we got a real image (not fallback)
+    if (result.source !== 'fallback' && onImageLoaded) {
+      onImageLoaded(result.imageUrl);
     }
   });
 
   return fallback;
+}
+
+/**
+ * Fetch image for a single product (for testing)
+ */
+export async function fetchProductImage(barcode: string, category: string = 'default'): Promise<{ imageUrl: string; source: string }> {
+  return queryProductImageAPI(barcode, category);
 }
 
 /**
@@ -152,10 +181,51 @@ export function evictStaleImages(currentProductCodes: Set<string>): number {
 
   if (evictedCount > 0) {
     saveImageCache(newCache);
-    console.log(`Evicted ${evictedCount} stale product images`);
+    console.log(`Evicted ${evictedCount} stale product images from local cache`);
   }
 
   return evictedCount;
+}
+
+/**
+ * Prefetch images for a batch of products (call this on page load)
+ * Fetches images in small batches to avoid overwhelming the API
+ */
+export async function prefetchProductImages(
+  products: Array<{ code: string; category: string }>,
+  batchSize: number = 5,
+  delayMs: number = 500
+): Promise<void> {
+  const cache = getImageCache();
+  const uncached = products.filter(p => p.code && !cache[p.code]);
+  
+  if (uncached.length === 0) return;
+  
+  console.log(`Prefetching images for ${uncached.length} products...`);
+  
+  for (let i = 0; i < uncached.length; i += batchSize) {
+    const batch = uncached.slice(i, i + batchSize);
+    
+    await Promise.all(
+      batch.map(async ({ code, category }) => {
+        const result = await queryProductImageAPI(code, category);
+        const newCache = getImageCache();
+        newCache[code] = {
+          imageUrl: result.imageUrl,
+          source: result.source,
+          fetchedAt: Date.now(),
+        };
+        saveImageCache(newCache);
+      })
+    );
+    
+    // Small delay between batches to be nice to the API
+    if (i + batchSize < uncached.length) {
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+  }
+  
+  console.log('Image prefetch complete');
 }
 
 /**
@@ -171,8 +241,8 @@ export function getImageCacheStats(): {
   
   return {
     totalEntries: entries.length,
-    withImages: entries.filter(e => e.found).length,
-    withoutImages: entries.filter(e => !e.found).length,
+    withImages: entries.filter(e => e.source !== 'fallback').length,
+    withoutImages: entries.filter(e => e.source === 'fallback').length,
   };
 }
 

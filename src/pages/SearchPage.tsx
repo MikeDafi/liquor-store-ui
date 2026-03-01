@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
-import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
+import { useProducts } from '../hooks/useSheetData';
+import { Product } from '../data/products';
 
 interface SearchPageProps {
   initialQuery?: string;
@@ -9,7 +10,8 @@ interface SearchPageProps {
 
 export function SearchPage({ initialQuery = '' }: SearchPageProps) {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
-  const [results, setResults] = useState(products);
+  const [results, setResults] = useState<Product[]>([]);
+  const { products, loading } = useProducts();
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
@@ -25,7 +27,7 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
       );
       setResults(filtered);
     }
-  }, [searchQuery]);
+  }, [searchQuery, products]);
 
   return (
     <div>
@@ -95,6 +97,7 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
     </div>
   );
 }
+
 
 
 

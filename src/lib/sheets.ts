@@ -5,7 +5,7 @@
  * No API key required for public sheets.
  */
 
-import { storeConfig } from '../config/store';
+import { getCurrentStore } from '../../data/storeConfig';
 
 // Build the Google Sheets CSV export URL
 function getSheetCsvUrl(sheetId: string, gid: string): string {
@@ -70,7 +70,11 @@ function parseCsvLine(line: string): string[] {
 
 // Fetch data from a specific sheet
 export async function fetchSheetData<T>(gid: string): Promise<T[]> {
-  const url = getSheetCsvUrl(storeConfig.googleSheetId, gid);
+  const currentStore = getCurrentStore();
+  const url = getSheetCsvUrl(currentStore.spreadsheetId, gid);
+  
+  console.log('[Sheets] Fetching from:', url);
+  console.log('[Sheets] Store:', currentStore.name, 'Sheet ID:', currentStore.spreadsheetId);
   
   try {
     const response = await fetch(url);
@@ -79,26 +83,39 @@ export async function fetchSheetData<T>(gid: string): Promise<T[]> {
     }
     
     const csv = await response.text();
-    return parseCsv<T>(csv);
+    const parsed = parseCsv<T>(csv);
+    console.log('[Sheets] Parsed rows:', parsed.length);
+    if (parsed.length > 0) {
+      console.log('[Sheets] First row:', parsed[0]);
+    }
+    return parsed;
   } catch (error) {
-    console.error('Error fetching sheet data:', error);
+    console.error('[Sheets] Error fetching sheet data:', error);
     return [];
   }
 }
 
-// Product data from sheet
+// Product data from sheet (maps to actual Google Sheet columns)
+// Different stores may have different column names, so we support multiple variants
 export interface SheetProduct {
-  id: string;
-  name: string;
-  category: string;
-  subcategory: string;
-  price: string;
-  size: string;
-  image: string;
-  description: string;
-  brand: string;
-  locations: string;
-  isTouristFavorite: string;
+  // Common columns (camelCase converted from various header names)
+  available?: string;
+  nameOfProduct?: string;
+  code?: string;
+  priceInStore?: string;
+  prices?: string;  // Alternative column name
+  category?: string;
+  // Legacy/optional columns for backwards compatibility
+  id?: string;
+  name?: string;
+  subcategory?: string;
+  price?: string;
+  size?: string;
+  image?: string;
+  description?: string;
+  brand?: string;
+  locations?: string;
+  isTouristFavorite?: string;
 }
 
 // Location data from sheet
@@ -131,39 +148,81 @@ export interface SheetFaq {
   category: string;
 }
 
+// Default GIDs for sheet tabs
+const DEFAULT_PRODUCTS_GID = '2011133176';
+const DEFAULT_LOCATIONS_GID = '0';
+const DEFAULT_CATEGORIES_GID = '0';
+const DEFAULT_FAQS_GID = '0';
+
 // Fetch products from Google Sheet
 export async function fetchProducts(): Promise<SheetProduct[]> {
-  return fetchSheetData<SheetProduct>(storeConfig.productsSheetGid);
+  return fetchSheetData<SheetProduct>(DEFAULT_PRODUCTS_GID);
 }
 
 // Fetch locations from Google Sheet
 export async function fetchLocations(): Promise<SheetLocation[]> {
-  return fetchSheetData<SheetLocation>(storeConfig.locationsSheetGid);
+  return fetchSheetData<SheetLocation>(DEFAULT_LOCATIONS_GID);
 }
 
 // Fetch categories from Google Sheet
 export async function fetchCategories(): Promise<SheetCategory[]> {
-  return fetchSheetData<SheetCategory>(storeConfig.categoriesSheetGid);
+  return fetchSheetData<SheetCategory>(DEFAULT_CATEGORIES_GID);
 }
 
 // Fetch FAQs from Google Sheet
 export async function fetchFaqs(): Promise<SheetFaq[]> {
-  return fetchSheetData<SheetFaq>(storeConfig.faqsSheetGid);
+  return fetchSheetData<SheetFaq>(DEFAULT_FAQS_GID);
+}
+
+// Category placeholder images
+const categoryImages: Record<string, string> = {
+  wine: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=80',
+  beer: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400&q=80',
+  spirits: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80',
+  whiskey: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=400&q=80',
+  vodka: 'https://images.unsplash.com/photo-1608885898957-a559228e8749?w=400&q=80',
+  tequila: 'https://images.unsplash.com/photo-1516535794938-6063878f08cc?w=400&q=80',
+  rum: 'https://images.unsplash.com/photo-1614313511387-1436a4480ebb?w=400&q=80',
+  gin: 'https://images.unsplash.com/photo-1608885898957-a559228e8749?w=400&q=80',
+  sake: 'https://images.unsplash.com/photo-1579541592065-da8a15e49bc7?w=400&q=80',
+  champagne: 'https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?w=400&q=80',
+  liqueur: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80',
+  mixer: 'https://images.unsplash.com/photo-1558645836-e44122a743ee?w=400&q=80',
+  default: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80',
+};
+
+function getCategoryImage(category: string): string {
+  const normalizedCategory = category?.toLowerCase().trim() || '';
+  return categoryImages[normalizedCategory] || categoryImages.default;
 }
 
 // Transform sheet data to app format
 export function transformProduct(sheet: SheetProduct) {
+  // Map actual sheet columns to expected format (handles different column naming conventions)
+  const name = sheet.nameOfProduct || sheet.name || '';
+  const id = sheet.code || sheet.id || `product-${Math.random().toString(36).substr(2, 9)}`;
+  const price = sheet.prices || sheet.priceInStore || sheet.price || '0';
+  const category = sheet.category || '';
+  
+  // Extract brand from product name (first word or two before main product name)
+  const nameParts = name.split(' ');
+  const brand = sheet.brand || (nameParts.length > 2 ? nameParts.slice(0, 2).join(' ') : nameParts[0] || '');
+  
+  // Extract size from name if present (e.g., "750 ML", "750ml")
+  const sizeMatch = name.match(/(\d+\s*(?:ml|ML|L|l|oz|OZ))/i);
+  const size = sheet.size || (sizeMatch ? sizeMatch[1] : '750ml');
+  
   return {
-    id: sheet.id,
-    name: sheet.name,
-    category: sheet.category,
-    subcategory: sheet.subcategory,
-    price: parseFloat(sheet.price) || 0,
-    size: sheet.size,
-    image: sheet.image,
-    description: sheet.description,
-    brand: sheet.brand,
-    locations: sheet.locations?.split(',').map(l => l.trim()) || [],
+    id,
+    name,
+    category,
+    subcategory: sheet.subcategory || category,
+    price: parseFloat(price) || 0,
+    size,
+    image: sheet.image || getCategoryImage(category),
+    description: sheet.description || `${name} - Available in store`,
+    brand,
+    locations: sheet.locations?.split(',').map(l => l.trim()) || ['main'],
     isTouristFavorite: sheet.isTouristFavorite?.toLowerCase() === 'true',
   };
 }
@@ -204,6 +263,7 @@ export function transformFaq(sheet: SheetFaq) {
     category: sheet.category,
   };
 }
+
 
 
 

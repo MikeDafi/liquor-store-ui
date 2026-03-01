@@ -48,20 +48,32 @@ export function useProducts() {
       }
 
       try {
+        console.log('[useProducts] Fetching products...');
         const sheetProducts = await fetchProducts();
+        console.log('[useProducts] Raw products from sheet:', sheetProducts.length);
         
         if (sheetProducts.length > 0) {
-          const transformed = sheetProducts.map(transformProduct);
+          // Filter to only available products and transform
+          const availableProducts = sheetProducts.filter(p => 
+            p.available?.toLowerCase() === 'true' || p.available === '1' || !p.available
+          );
+          console.log('[useProducts] Available products:', availableProducts.length);
+          const transformed = availableProducts.map(transformProduct);
+          console.log('[useProducts] Transformed products:', transformed.length);
+          if (transformed.length > 0) {
+            console.log('[useProducts] First product:', transformed[0]);
+          }
           dataCache.products = transformed;
           dataCache.lastFetch = Date.now();
           setProducts(transformed);
         } else {
+          console.log('[useProducts] No sheet products, falling back to static data');
           // Fallback to static data if sheet is empty or fails
           const { products: staticProducts } = await import('../data/products');
           setProducts(staticProducts);
         }
       } catch (err) {
-        console.error('Failed to load products from sheet:', err);
+        console.error('[useProducts] Failed to load products from sheet:', err);
         setError(err instanceof Error ? err : new Error('Failed to load products'));
         // Fallback to static data
         const { products: staticProducts } = await import('../data/products');
@@ -196,6 +208,7 @@ export async function preloadAllData() {
     fetchFaqs(),
   ]);
 }
+
 
 
 

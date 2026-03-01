@@ -1,15 +1,24 @@
 import { MapPin, Phone, ChevronLeft } from 'lucide-react';
-import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { ProductSEO } from '../components/SEOHead';
 import { storeConfig } from '../config/store';
+import { useProducts } from '../hooks/useSheetData';
 
 interface ProductPageProps {
   productId: string;
 }
 
 export function ProductPage({ productId }: ProductPageProps) {
+  const { products, loading } = useProducts();
   const product = products.find(p => p.id === productId);
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="text-center text-neutral-600">Loading product...</div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (

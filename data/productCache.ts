@@ -58,15 +58,16 @@ function parseCSVLine(line: string): string[] {
     if (char === '"') {
       inQuotes = !inQuotes;
     } else if (char === ',' && !inQuotes) {
-      fields.push(current.trim());
+      // Strip surrounding quotes and trim
+      fields.push(current.replace(/^"|"$/g, '').trim());
       current = '';
     } else {
       current += char;
     }
   }
   
-  // Don't forget the last field
-  fields.push(current.trim());
+  // Don't forget the last field - strip quotes too
+  fields.push(current.replace(/^"|"$/g, '').trim());
   
   return fields;
 }
@@ -87,7 +88,11 @@ function parseCSV(csvContent: string): Product[] {
   const headerLine = lines[0].toLowerCase();
   const hasAvailableColumn = headerLine.includes('available');
   
-  console.log('CSV parsing - hasAvailableColumn:', hasAvailableColumn, 'total lines:', lines.length);
+  console.log('[parseCSV] hasAvailableColumn:', hasAvailableColumn, 'total lines:', lines.length);
+  console.log('[parseCSV] Header:', lines[0]);
+  if (lines.length > 1) {
+    console.log('[parseCSV] First data row:', lines[1]);
+  }
   
   // Skip header row
   for (let i = 1; i < lines.length; i++) {
@@ -97,27 +102,42 @@ function parseCSV(csvContent: string): Product[] {
     // Parse CSV line properly handling quotes
     const fields = parseCSVLine(line);
     
+    // Log first few rows for debugging
+    if (i <= 3) {
+      console.log(`[parseCSV] Row ${i} fields:`, fields.slice(0, 6));
+    }
+    
     let name: string, code: string, category: string;
     
     if (hasAvailableColumn) {
-      // Google Sheets format: Available, Name, Code, Price, Category
-      if (fields.length < 5) continue;
-      const available = fields[0].toUpperCase();
-      if (available !== 'TRUE') continue; // Skip unavailable products
-      name = fields[1];
-      code = fields[2];
-      // fields[3] is price - ignored
-      category = fields[4].toLowerCase();
+      // Google Sheets format: Available, Name of Product, Prices, Category, Code
+      if (fields.length < 5) {
+        if (i <= 3) console.log(`[parseCSV] Row ${i} skipped: less than 5 fields`);
+        continue;
+      }
+      // Strip quotes and normalize available field
+      const available = fields[0].replace(/"/g, '').toUpperCase().trim();
+      if (available !== 'TRUE') {
+        if (i <= 3) console.log(`[parseCSV] Row ${i} skipped: available='${available}'`);
+        continue;
+      }
+      name = fields[1].replace(/"/g, '').trim();
+      // fields[2] is price - ignored
+      category = fields[3].replace(/"/g, '').toLowerCase().trim();
+      code = fields[4].replace(/"/g, '').trim();
     } else {
       // Local CSV format: Name, Code, Price, Category
       if (fields.length < 4) continue;
-      name = fields[0];
-      code = fields[1];
+      name = fields[0].replace(/"/g, '').trim();
+      code = fields[1].replace(/"/g, '').trim();
       // fields[2] is price - ignored
-      category = fields[3].toLowerCase();
+      category = fields[3].replace(/"/g, '').toLowerCase().trim();
     }
     
-    if (!name || !code || !category) continue;
+    if (!name || !code || !category) {
+      if (i <= 3) console.log(`[parseCSV] Row ${i} skipped: missing name/code/category`);
+      continue;
+    }
     
     // Extract brand from product name (first word or first two words before common patterns)
     const brand = extractBrand(name);
@@ -367,7 +387,30 @@ async function loadCSVContent(): Promise<string> {
   if (csvContentPromise) return csvContentPromise;
   
   csvContentPromise = (async () => {
-    // Try API endpoint first (proxies Google Sheets)
+    // In development, try direct Google Sheets first (API routes don't work with vite dev)
+    if (import.meta.env.DEV) {
+      console.log(`[DEV] Loading inventory for ${store.name} directly from Google Sheets...`);
+      const googleSheetsUrl = getSpreadsheetCsvUrl(store.spreadsheetId);
+      console.log(`[DEV] URL: ${googleSheetsUrl}`);
+      
+      try {
+        const response = await fetch(googleSheetsUrl);
+        console.log(`[DEV] Response status: ${response.status}`);
+        if (response.ok) {
+          const text = await response.text();
+          console.log(`[DEV] Response length: ${text.length}, first 100 chars: ${text.substring(0, 100)}`);
+          if (text && text.length > 50 && !text.includes('<!DOCTYPE')) {
+            const lineCount = text.split('\n').length - 1;
+            console.log(`[DEV] Loaded ${lineCount} products from Google Sheets for ${store.name}`);
+            return text;
+          }
+        }
+      } catch (error) {
+        console.warn('[DEV] Failed to fetch from Google Sheets:', error);
+      }
+    }
+    
+    // Try API endpoint (works in production on Vercel)
     const apiUrl = `/api/inventory?store=${store.id}`;
     console.log(`Loading inventory for ${store.name} via API...`);
     
@@ -435,6 +478,11 @@ async function loadCSVContent(): Promise<string> {
  * Load and cache products from CSV
  */
 export async function loadProducts(): Promise<Product[]> {
+  // In development, always clear cache to get fresh data
+  if (import.meta.env.DEV) {
+    clearProductCache();
+  }
+  
   // Check cache first
   const cached = getCachedProducts();
   if (cached && cached.length > 0) {
