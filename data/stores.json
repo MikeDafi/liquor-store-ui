@@ -28,26 +28,31 @@
       "99988071577"
     ],
     "faqs": [
-      {
-        "question": "What are your store hours?",
-        "answer": "We're open Monday-Thursday 9 AM - 9 PM, Friday-Saturday 9 AM - 10 PM, and Sunday 9 AM - 9 PM."
-      },
-      {
-        "question": "Where are you located?",
-        "answer": "We're at 1700 Hayes St in San Francisco's Hayes Valley neighborhood, near the corner of Hayes and Shrader, just a few blocks from Alamo Square Park."
-      },
-      {
-        "question": "Do you offer delivery?",
-        "answer": "We don't currently offer delivery, but we're conveniently located with street parking available. Stop by and browse our full selection in-store!"
-      },
-      {
-        "question": "Do you have a loyalty program?",
-        "answer": "Yes, join our rewards program and earn points on every purchase. Sign up in-store."
-      },
-      {
-        "question": "Do you carry local craft beers?",
-        "answer": "Yes! We have an extensive selection of San Francisco Bay Area craft beers including local favorites and rotate seasonal offerings."
-      }
+      { "question": "What are your store hours?", "answer": "We're open Monday-Thursday 9 AM - 9 PM, Friday-Saturday 9 AM - 10 PM, and Sunday 9 AM - 9 PM." },
+      { "question": "Where are you located?", "answer": "We're at 1700 Hayes St in San Francisco's Hayes Valley neighborhood, near the corner of Hayes and Shrader, just a few blocks from Alamo Square Park." },
+      { "question": "What's the closest liquor store to Alamo Square Park?", "answer": "Home Service Market is just a few blocks from Alamo Square Park at 1700 Hayes St — perfect for picking up wine, beer, or snacks before enjoying the Painted Ladies view." },
+      { "question": "Where can I buy craft beer near the Fillmore?", "answer": "We're on Hayes Street, minutes from The Fillmore. Stop by before or after a show for local SF craft beers, IPAs, and a wide selection of domestic and imported options." },
+      { "question": "Do you sell ice and mixers?", "answer": "Yes! We carry bags of ice, tonic water, soda, juices, bitters, and all the essentials for making cocktails at home." },
+      { "question": "What wine goes well with a dinner party?", "answer": "For a crowd-pleasing dinner wine, we recommend a California Cabernet Sauvignon or Pinot Noir in the $15-25 range. Our staff can help you pick the perfect bottle based on your menu." },
+      { "question": "Are you open on holidays?", "answer": "We're open most holidays with adjusted hours. Call us at (415) 346-7000 to confirm." },
+      { "question": "Do you carry non-alcoholic options?", "answer": "Yes — non-alcoholic beers, wines, and spirits, plus sodas, energy drinks, water, and juices." },
+      { "question": "What's the best bourbon under $30?", "answer": "We carry several excellent bourbons under $30 including Buffalo Trace, Evan Williams Single Barrel, and Wild Turkey 101. Ask our staff for their pick." },
+      { "question": "Can I buy single beers or do I need to buy a pack?", "answer": "We sell individual cans and bottles so you can mix and match to try different styles." },
+      { "question": "Where can I find a liquor store in Hayes Valley?", "answer": "Home Service Market is Hayes Valley's neighborhood liquor and convenience store at 1700 Hayes St, near Hayes and Shrader. Open daily." },
+      { "question": "Do you sell cigarettes and tobacco?", "answer": "Yes, we carry cigarettes, cigars, and tobacco products. Valid ID required." },
+      { "question": "What's the difference between bourbon and whiskey?", "answer": "All bourbon is whiskey, but not all whiskey is bourbon. Bourbon must be made in the USA from at least 51% corn and aged in new charred oak barrels. We carry both." },
+      { "question": "Do you have good wines under $15?", "answer": "Absolutely! Menage a Trois, Line 39, and imports from Chile and Argentina are all great quality under $15." },
+      { "question": "Can I walk to your store from NOPA or the Western Addition?", "answer": "Yes! We're right on the border of Hayes Valley and the Western Addition — easy walking from NOPA, the Panhandle, and Lower Haight." },
+      { "question": "Do you sell lottery tickets?", "answer": "Yes, we sell California Lottery tickets including Scratchers and draw games." },
+      { "question": "What snacks do you carry?", "answer": "Chips, nuts, jerky, candy, gum, and other grab-and-go snacks — perfect for pairing with your drinks." },
+      { "question": "Is there parking near your store?", "answer": "Street parking is available on Hayes St and surrounding blocks, usually within a block or two." },
+      { "question": "What's the best wine to bring to a housewarming?", "answer": "A Napa Valley Cabernet or a sparkling wine always impresses. Budget $20-35 for something special. We can help you choose." },
+      { "question": "Do you accept credit cards?", "answer": "Yes — all major credit cards, debit cards, and cash." },
+      { "question": "What are the alcohol buying hours in California?", "answer": "Alcohol can be sold between 6:00 AM and 2:00 AM daily in California. Our store hours fall within these times." },
+      { "question": "Can you recommend a good tequila for margaritas?", "answer": "For margaritas, go with a blanco tequila — Espolón, Olmeca Altos, or Casamigos Blanco are excellent without breaking the bank." },
+      { "question": "Do you carry San Francisco Bay Area craft beers?", "answer": "Yes! We stock local favorites from Anchor Brewing, Fort Point, Cellarmaker, and other Bay Area producers." },
+      { "question": "What's the cheapest beer you sell?", "answer": "We carry budget-friendly domestics like Budweiser, Coors, PBR, and Natural Light in cans and packs." },
+      { "question": "Do you offer delivery?", "answer": "We don't currently offer delivery, but we're conveniently located with street parking available. Stop by and browse our full selection in-store!" }
     ],
     "reviews": [
       {
@@ -99,26 +104,31 @@
       "898563002629"
     ],
     "faqs": [
-      {
-        "question": "What are your store hours?",
-        "answer": "We're open 7 days a week from 8 AM to 12 AM (midnight). Perfect for late-night needs!"
-      },
-      {
-        "question": "Where are you located?",
-        "answer": "We're at 600 Post St in San Francisco's Nob Hill neighborhood, just steps from Union Square and the historic Fairmont Hotel."
-      },
-      {
-        "question": "Do you offer delivery?",
-        "answer": "We don't currently offer delivery, but our central downtown location makes us easy to reach. We're near several MUNI lines and the Powell Street cable car."
-      },
-      {
-        "question": "Can you help me select a wine for a special occasion?",
-        "answer": "Absolutely! Our knowledgeable staff is happy to help you find the perfect bottle for any occasion, from casual dinners to celebrations."
-      },
-      {
-        "question": "Do you carry imported wines and spirits?",
-        "answer": "Yes, we have an excellent selection of imports from France, Italy, Japan, Scotland, and more, alongside premium California wines."
-      }
+      { "question": "What are your store hours?", "answer": "We're open 7 days a week from 8 AM to 12 AM (midnight). Perfect for late-night needs!" },
+      { "question": "Where are you located?", "answer": "We're at 600 Post St in San Francisco's Nob Hill neighborhood, just steps from Union Square and the historic Fairmont Hotel." },
+      { "question": "What liquor store is closest to the Fairmont Hotel?", "answer": "Town Country Market is steps from the Fairmont at 600 Post St — the most convenient option for Fairmont, Mark Hopkins, and Huntington Hotel guests." },
+      { "question": "Is there a liquor store near Union Square open late?", "answer": "Yes! We're open until midnight, 7 days a week — the latest hours of any liquor store near Union Square." },
+      { "question": "Where can I buy wine near the Powell Street cable car?", "answer": "We're a short walk from the Powell-Hyde and Powell-Mason cable car lines. Head up Post Street from Union Square to 600 Post St." },
+      { "question": "Do you carry champagne for a celebration?", "answer": "Everything from budget-friendly Prosecco and Cava to Moët, Veuve Clicquot, and Dom Pérignon." },
+      { "question": "What's the best wine to bring back from San Francisco as a souvenir?", "answer": "A Napa Valley Cabernet Sauvignon or Sonoma Coast Pinot Noir — both iconic California wines that travel well." },
+      { "question": "Can I buy alcohol after 10 PM in San Francisco?", "answer": "Yes! California allows sales until 2 AM. Town Country Market is open until midnight daily." },
+      { "question": "Where's the nearest liquor store to the Tenderloin?", "answer": "We're at 600 Post St, right on the Nob Hill/Tenderloin border — easy walking distance from anywhere in the neighborhood." },
+      { "question": "Do you sell mini bottles?", "answer": "Yes — 50ml nips in whiskey, vodka, rum, tequila, and more. Perfect for hotel rooms or travel." },
+      { "question": "What's the difference between Prosecco and Champagne?", "answer": "Champagne is from France, more complex and expensive. Prosecco is Italian, lighter, and more affordable. Both are sparkling wines — we carry both." },
+      { "question": "Are you open on New Year's Eve?", "answer": "Yes! Open until midnight on NYE and most holidays. Call (415) 555-0200 to confirm." },
+      { "question": "Where can I buy sake near Chinatown?", "answer": "We're a few blocks from Chinatown. We stock premium Japanese sake including junmai, ginjo, daiginjo, and nigori styles." },
+      { "question": "Do you carry imported wines from France and Italy?", "answer": "Yes — French Bordeaux, Burgundy, Rhône, plus Italian Chianti, Barolo, and Prosecco alongside California wines." },
+      { "question": "What's a good whiskey gift under $50?", "answer": "Maker's Mark, Woodford Reserve, Bulleit Bourbon, or Jameson Black Barrel. Our staff can tailor the recommendation." },
+      { "question": "Is there a convenience store near the San Francisco Masonic?", "answer": "We're about a 10-minute walk from the Masonic. Stop by before or after events." },
+      { "question": "Do you sell cold beer?", "answer": "Yes — a wide selection kept cold and ready to drink, including craft, domestic, and imported." },
+      { "question": "What red wine pairs well with steak?", "answer": "Napa Cabernet Sauvignon is the classic. Malbec and Syrah/Shiraz also pair beautifully. We can find the perfect bottle." },
+      { "question": "Where can tourists buy alcohol in San Francisco?", "answer": "Any liquor store in SF sells alcohol. Town Country Market at 600 Post St is centrally located near Union Square hotels and open late." },
+      { "question": "Do you carry cocktail mixers and garnishes?", "answer": "Yes — tonic water, club soda, ginger beer, bitters, citrus juices, and all cocktail essentials." },
+      { "question": "What's the legal drinking age in California?", "answer": "21 years old. We check ID for all alcohol purchases." },
+      { "question": "Can you recommend a wine for someone who doesn't usually drink wine?", "answer": "Moscato (sweet, light), Pinot Grigio (crisp, easy), or Rosé (refreshing) are great starting points. We love helping people discover wines." },
+      { "question": "Is your store wheelchair accessible?", "answer": "Yes, we're accessible from street level at 600 Post St." },
+      { "question": "Do you carry Japanese whisky?", "answer": "Select Japanese whiskies when available — they're often allocated and sell quickly. Call ahead to check stock." },
+      { "question": "Do you offer delivery?", "answer": "We don't currently offer delivery, but our central downtown location makes us easy to reach. We're near several MUNI lines and the Powell Street cable car." }
     ],
     "reviews": [
       {
@@ -170,26 +180,31 @@
       "898756001477"
     ],
     "faqs": [
-      {
-        "question": "What are your store hours?",
-        "answer": "We're open Monday 10 AM - 11 PM, Tuesday 10 AM - 10 PM, Wednesday-Thursday 10 AM - 11 PM, Friday-Saturday 10 AM - 12 AM, and Sunday 10 AM - 11 PM."
-      },
-      {
-        "question": "Where are you located?",
-        "answer": "We're at 615 Sutter St in San Francisco's Union Square district, between Mason and Taylor, walking distance from the Theater District and major hotels."
-      },
-      {
-        "question": "Do you offer delivery?",
-        "answer": "We don't currently offer delivery. Visit us in-store to browse our extensive collection and get personalized recommendations from our expert staff."
-      },
-      {
-        "question": "Do you specialize in any particular spirits?",
-        "answer": "We're known for our exceptional selection of single malt scotch, Japanese whisky, and small-batch bourbons. We also carry rare and allocated releases."
-      },
-      {
-        "question": "Can I pre-order rare bottles?",
-        "answer": "Yes! We maintain a waitlist for allocated and rare releases. Call us at (415) 474-4951 or visit the store to be added to our list."
-      }
+      { "question": "What are your store hours?", "answer": "We're open Monday 10 AM - 11 PM, Tuesday 10 AM - 10 PM, Wednesday-Thursday 10 AM - 11 PM, Friday-Saturday 10 AM - 12 AM, and Sunday 10 AM - 11 PM." },
+      { "question": "Where are you located?", "answer": "We're at 615 Sutter St in San Francisco's Union Square district, between Mason and Taylor, walking distance from the Theater District and major hotels." },
+      { "question": "Where can I find rare Japanese whisky in San Francisco?", "answer": "MMC Wine & Spirit specializes in hard-to-find Japanese whisky — Yamazaki, Hibiki, Hakushu, Nikka. We maintain a waitlist for allocated releases." },
+      { "question": "What's the best liquor store near the SF Theater District?", "answer": "We're walking distance from all major theaters on Geary Street at 615 Sutter St, between Mason and Taylor." },
+      { "question": "Do you carry allocated or limited-edition bourbons?", "answer": "Yes — Buffalo Trace Antique Collection, Pappy Van Winkle, Weller. Call (415) 474-4951 for our waitlist." },
+      { "question": "Where's the nearest wine shop to the Westin St. Francis?", "answer": "A short walk — head one block north of Union Square on Sutter Street to 615 Sutter St." },
+      { "question": "What single malt scotch do you recommend for a beginner?", "answer": "Glenlivet 12 (smooth), Glenfiddich 12 (light), or Macallan 12 (rich). All under $60 and excellent starting points." },
+      { "question": "Can I pre-order a specific bottle?", "answer": "Yes! We special order most wines and spirits. For rare bottles, call (415) 474-4951 for our waitlist." },
+      { "question": "What's the most expensive whisky you carry?", "answer": "Our premium shelf typically ranges $200-$500+, including rare Japanese whisky, single cask scotch, and limited bourbon. Visit to see current selection." },
+      { "question": "Where can I buy boutique California wines in San Francisco?", "answer": "We curate small-production wines from Napa, Sonoma, Paso Robles, and Santa Barbara that you won't find in grocery stores." },
+      { "question": "Is there a liquor store near Chinatown with good whisky?", "answer": "We're on the edge of Chinatown at 615 Sutter St with one of downtown SF's best whisky selections — scotch, bourbon, Japanese, Irish, and rye." },
+      { "question": "What's the difference between single malt and blended scotch?", "answer": "Single malt is from one distillery using malted barley — more distinct character. Blended combines multiple distilleries — typically smoother. We carry excellent examples of both." },
+      { "question": "Do you offer gift wrapping or gift bags?", "answer": "Yes, we provide gift bags for bottle purchases — perfect for hotel gifts, dinner parties, or special occasions." },
+      { "question": "What mezcal brands do you carry?", "answer": "Artisanal mezcals including Del Maguey, Montelobos, Banhez, and other small-batch producers." },
+      { "question": "Where can I buy cognac or brandy near Union Square?", "answer": "We carry Hennessy, Rémy Martin, Courvoisier, and boutique producers at 615 Sutter St, one block from Union Square." },
+      { "question": "What wine should I pair with seafood?", "answer": "Sauvignon Blanc, Chablis, or Albariño for light fish. Light Pinot Noir for richer fish like salmon. Our staff can match wine to your specific dish." },
+      { "question": "Do you carry natural or organic wines?", "answer": "Yes — biodynamic, organic, and minimal-intervention wines from California and Europe. This selection is growing." },
+      { "question": "What's a good housewarming gift from a liquor store?", "answer": "Quality champagne ($30-60), premium bourbon like Woodford Reserve, or Napa Cabernet. We suggest the perfect bottle for any budget." },
+      { "question": "Is there a liquor store near the Hilton Union Square?", "answer": "3-minute walk — head north on Mason St to Sutter. We're at 615 Sutter St." },
+      { "question": "What's the best aperitif or digestif?", "answer": "Aperitifs: Aperol, Campari, Lillet. Digestifs: Fernet-Branca, Amaro Montenegro, fine port. We stock a wide range of Italian amari and French aperitifs." },
+      { "question": "Can your staff help me choose a wine or spirit?", "answer": "Absolutely! Our staff are enthusiasts who love matching customers to the right bottle — first-timers and collectors alike." },
+      { "question": "What vermouth do you carry for Negronis or Martinis?", "answer": "Carpano Antica Formula, Dolin, Cocchi di Torino, and Noilly Prat — everything for a perfect Negroni, Manhattan, or Martini." },
+      { "question": "Where can I find a gift for a whiskey collector?", "answer": "We often have limited releases, single cask bottlings, and rare finds. Call ahead or visit — our special bottles change frequently." },
+      { "question": "Do you offer delivery?", "answer": "We don't currently offer delivery. Visit us in-store to browse our extensive collection and get personalized recommendations from our expert staff." },
+      { "question": "Do you ship bottles?", "answer": "We don't ship, but we're centrally located near Union Square — easy to reach by MUNI, cable car, or rideshare." }
     ],
     "reviews": [
       {
