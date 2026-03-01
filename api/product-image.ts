@@ -158,7 +158,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let imageUrl = await tryUPCItemDB(cleanUpc);
   let source: 'upcitemdb' | 'openfoodfacts' | 'fallback' = 'upcitemdb';
   
-  // 3. Fall back to Open Food Facts
+  // Cache UPC Item DB results to Blob storage (high quality, worth persisting)
+  if (imageUrl && blobConfigured) {
+    const cacheData: CachedImage = {
+      url: imageUrl,
+      source: 'upcitemdb',
+      fetchedAt: Date.now(),
+    };
+    await setBlobCache(cleanUpc, cacheData);
+  }
+  
+  // 3. Fall back to Open Food Facts (don't cache - lower quality/user-submitted)
   if (!imageUrl) {
     imageUrl = await tryOpenFoodFacts(cleanUpc);
     source = 'openfoodfacts';
@@ -168,16 +178,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!imageUrl) {
     imageUrl = CATEGORY_FALLBACKS[category] || CATEGORY_FALLBACKS.default;
     source = 'fallback';
-  }
-  
-  // Cache the result in Blob storage (even fallbacks, to avoid repeated lookups)
-  if (blobConfigured) {
-    const cacheData: CachedImage = {
-      url: imageUrl,
-      source,
-      fetchedAt: Date.now(),
-    };
-    await setBlobCache(cleanUpc, cacheData);
   }
   
   return res.status(200).json({
