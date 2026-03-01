@@ -29,7 +29,14 @@ export function Hero({ onSearchClick, onDirectionsClick }: HeroProps) {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 text-sm text-neutral-300 mb-8">
             <div className="flex items-start gap-2">
               <span className="text-lg">📍</span>
-              <span>{storeConfig.address}</span>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(storeConfig.address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white underline underline-offset-2 transition-colors"
+              >
+                {storeConfig.address}
+              </a>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-lg">🕐</span>

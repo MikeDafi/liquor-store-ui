@@ -13,14 +13,23 @@ export function Footer() {
             <div className="space-y-2 text-sm text-neutral-300">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>{storeConfig.address}</span>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(storeConfig.address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white underline underline-offset-2 transition-colors"
+                >
+                  {storeConfig.address}
+                </a>
               </div>
+              {storeConfig.phone && (
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 flex-shrink-0" />
                 <a href={`tel:${storeConfig.phone}`} className="hover:text-white transition-colors">
                   {storeConfig.phone}
                 </a>
               </div>
+              )}
               <div className="flex items-start gap-2">
                 <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <div>

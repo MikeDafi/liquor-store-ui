@@ -15,7 +15,7 @@ We operate three neighborhood liquor stores in San Francisco:
 
 ### Town Country Market  
 - Location: 600 Post St, San Francisco, CA 94109 (Nob Hill)
-- Phone: (415) 555-0200
+- Phone: Contact in-store
 - Hours: Daily 8AM-12AM (midnight)
 - Specialty: Fine wines, premium spirits, gourmet provisions
 - Near: Fairmont Hotel, Union Square, Powell Street cable car
@@ -23,7 +23,7 @@ We operate three neighborhood liquor stores in San Francisco:
 ### MMC Wine & Spirit
 - Location: 615 Sutter St, San Francisco, CA 94102 (Union Square)
 - Phone: (415) 474-4951
-- Hours: Mon 10AM-11PM, Tue 10AM-10PM, Wed-Thu 10AM-11PM, Fri-Sat 10AM-12AM, Sun 10AM-11PM
+- Hours: Mon-Thu 10AM-11PM, Fri-Sat 10AM-12AM, Sun 10AM-11PM
 - Specialty: Rare wines, Japanese whisky, single malt scotch, allocated releases
 - Near: Theater District, Chinatown, luxury hotels
 

@@ -147,10 +147,16 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
                     All products shown are available in-store. Call ahead to confirm specific items.
                   </div>
                   <div className="space-y-2 text-sm">
-                    <div className="flex items-start gap-2">
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(storeConfig.address)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-2 text-neutral-700 hover:text-neutral-900 hover:underline"
+                    >
                       <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-neutral-500" />
-                      <span className="text-neutral-700">{storeConfig.address}</span>
-                    </div>
+                      {storeConfig.address}
+                    </a>
+                    {storeConfig.phone && (
                     <a
                       href={`tel:${storeConfig.phone}`}
                       className="flex items-center gap-2 text-neutral-900 hover:underline"
@@ -158,6 +164,7 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
                       <Phone className="w-4 h-4 flex-shrink-0" />
                       {storeConfig.phone}
                     </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -202,10 +209,16 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
               <p className="text-neutral-400 text-sm">Call us or visit the store for personalized recommendations</p>
             </div>
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 text-sm text-neutral-300">
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(storeConfig.address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-neutral-300 hover:text-white transition-colors"
+              >
                 <MapPin className="w-4 h-4" />
-                <span>{storeConfig.address}</span>
-              </div>
+                <span className="underline underline-offset-2">{storeConfig.address}</span>
+              </a>
+              {storeConfig.phone && (
               <a
                 href={`tel:${storeConfig.phone}`}
                 className="flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 rounded-lg hover:bg-neutral-100 transition-colors"
@@ -213,6 +226,7 @@ export function CategoryPage({ categoryId }: CategoryPageProps) {
                 <Phone className="w-4 h-4" />
                 {storeConfig.phone}
               </a>
+              )}
             </div>
           </div>
         </div>

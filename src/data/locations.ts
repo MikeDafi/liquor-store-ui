@@ -36,7 +36,7 @@ export const locations: Location[] = [
     id: 'north-beach',
     name: 'North Beach Liquor & Provisions',
     address: '456 Columbus Avenue, San Francisco, CA 94133',
-    phone: '(415) 555-0200',
+    phone: '',
     hours: {
       weekday: 'Mon-Fri: 9:00 AM - 10:00 PM',
       weekend: 'Sat-Sun: 10:00 AM - 11:00 PM'
