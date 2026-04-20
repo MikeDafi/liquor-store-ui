@@ -20,6 +20,9 @@ export const categories = [
   { id: 'tequila', name: 'Tequila', icon: '🥃', image: 'https://images.unsplash.com/photo-1516535794938-6063878f08cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
   { id: 'beer', name: 'Beer', icon: '🍺', image: 'https://images.unsplash.com/photo-1659464832543-9c6c52abcadf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmFmdCUyMGJlZXIlMjBib3R0bGVzfGVufDF8fHx8MTc2NzU2MDc3M3ww&ixlib=rb-4.1.0&q=80&w=1080' },
   { id: 'sake', name: 'Sake', icon: '🍶', image: 'https://images.unsplash.com/photo-1579541592065-da8a15e49bc7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
+  { id: 'food', name: 'Snacks & Food', icon: '🍿', image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
+  { id: 'drinks', name: 'Drinks', icon: '🥤', image: 'https://images.unsplash.com/photo-1558645836-e44122a743ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
+  { id: 'tobacco', name: 'Tobacco', icon: '🚬', image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
   { id: 'pharmacy', name: 'Pharmacy', icon: '💊', image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
   { id: 'dairy', name: 'Dairy & Frozen', icon: '🧊', image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' }
 ];

@@ -44,10 +44,11 @@ export function Footer() {
           <div>
             <h4 className="font-medium mb-3">Shop</h4>
             <ul className="space-y-2 text-sm text-neutral-300">
-              <li><a href="/category/sake" className="hover:text-white transition-colors">Sake</a></li>
+              <li><a href="/category/whiskey" className="hover:text-white transition-colors">Whiskey</a></li>
               <li><a href="/category/wine" className="hover:text-white transition-colors">Wine</a></li>
               <li><a href="/category/beer" className="hover:text-white transition-colors">Beer</a></li>
-              <li><a href="/category/spirits" className="hover:text-white transition-colors">Spirits</a></li>
+              <li><a href="/category/vodka" className="hover:text-white transition-colors">Vodka</a></li>
+              <li><a href="/category/tequila" className="hover:text-white transition-colors">Tequila</a></li>
             </ul>
           </div>
 
@@ -55,9 +56,9 @@ export function Footer() {
           <div>
             <h4 className="font-medium mb-3">More</h4>
             <ul className="space-y-2 text-sm text-neutral-300">
-              <li><a href="/category/pharmacy" className="hover:text-white transition-colors">Pharmacy</a></li>
-              <li><a href="/category/grocery" className="hover:text-white transition-colors">Grocery</a></li>
-              <li><a href="/category/deli" className="hover:text-white transition-colors">Deli</a></li>
+              <li><a href="/category/food" className="hover:text-white transition-colors">Food</a></li>
+              <li><a href="/category/drinks" className="hover:text-white transition-colors">Drinks</a></li>
+              <li><a href="/category/tobacco" className="hover:text-white transition-colors">Tobacco</a></li>
             </ul>
           </div>
 

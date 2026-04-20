@@ -21,6 +21,8 @@ export const categories = [
   { id: 'beer', name: 'Beer', icon: '🍺', image: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=800&q=80' },
   { id: 'sake', name: 'Sake', icon: '🍶', image: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=800&q=80' },
   { id: 'food', name: 'Snacks & Food', icon: '🍿', image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=800&q=80' },
+  { id: 'drinks', name: 'Drinks', icon: '🥤', image: 'https://images.unsplash.com/photo-1558645836-e44122a743ee?w=800&q=80' },
+  { id: 'tobacco', name: 'Tobacco', icon: '🚬', image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80' },
   { id: 'pharmacy', name: 'Pharmacy', icon: '💊', image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800&q=80' },
   { id: 'dairy', name: 'Dairy & Frozen', icon: '🧊', image: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=800&q=80' }
 ];

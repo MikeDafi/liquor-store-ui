@@ -146,7 +146,7 @@ function parseCSV(csvContent: string): Product[] {
     const subcategory = generateSubcategory(name, category);
     
     // Extract size from product name if present
-    const size = extractSize(name);
+    const size = extractSize(name, category);
     
     products.push({
       id: `${category}-${code}`,
@@ -254,10 +254,13 @@ function generateSubcategory(name: string, category: string): string {
   return category.charAt(0).toUpperCase() + category.slice(1);
 }
 
+// Non-alcoholic categories that should not default to 750ml
+const NON_ALCOHOLIC_CATEGORIES = ['food', 'pharmacy', 'dairy', 'tobacco', 'drinks', 'snacks'];
+
 /**
  * Extract size from product name
  */
-function extractSize(name: string): string {
+function extractSize(name: string, category?: string): string {
   // Look for common size patterns
   const sizePatterns = [
     /(\d+(?:\.\d+)?\s*(?:ml|ML|mL))/i,
@@ -265,15 +268,19 @@ function extractSize(name: string): string {
     /(\d+(?:\.\d+)?\s*(?:l|L|liter|litre))/i,
     /(\d+-pack|\d+\s*pack)/i,
   ];
-  
+
   for (const pattern of sizePatterns) {
     const match = name.match(pattern);
     if (match) {
       return match[1];
     }
   }
-  
-  return '750ml'; // Default size
+
+  // Only default to 750ml for alcoholic categories
+  if (category && NON_ALCOHOLIC_CATEGORIES.includes(category.toLowerCase())) {
+    return '';
+  }
+  return '750ml'; // Default size for alcohol
 }
 
 /**

@@ -15,6 +15,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <img
           src={product.image}
           alt={product.name}
+          loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>
@@ -23,9 +24,11 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="text-sm text-neutral-600 mb-1">{product.brand}</div>
         <h3 className="mb-2 group-hover:text-neutral-600 transition-colors">{product.name}</h3>
         
-        <div className="mb-3">
-          <span className="text-sm text-neutral-600">{product.size}</span>
-        </div>
+        {product.size && (
+          <div className="mb-3">
+            <span className="text-sm text-neutral-600">{product.size}</span>
+          </div>
+        )}
 
         <div className="flex items-start gap-2 text-sm text-neutral-600">
           <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />

@@ -188,6 +188,9 @@ const categoryImages: Record<string, string> = {
   champagne: 'https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?w=400&q=80',
   liqueur: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80',
   mixer: 'https://images.unsplash.com/photo-1558645836-e44122a743ee?w=400&q=80',
+  food: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&q=80',
+  drinks: 'https://images.unsplash.com/photo-1558645836-e44122a743ee?w=400&q=80',
+  tobacco: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80',
   default: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80',
 };
 
@@ -210,7 +213,7 @@ export function transformProduct(sheet: SheetProduct) {
   
   // Extract size from name if present (e.g., "750 ML", "750ml")
   const sizeMatch = name.match(/(\d+\s*(?:ml|ML|L|l|oz|OZ))/i);
-  const size = sheet.size || (sizeMatch ? sizeMatch[1] : '750ml');
+  const size = sheet.size || (sizeMatch ? sizeMatch[1] : '');
   
   return {
     id,

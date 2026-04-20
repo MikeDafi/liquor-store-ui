@@ -16,7 +16,16 @@ export function ProductPage({ productId }: ProductPageProps) {
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="text-center text-neutral-600">Loading product...</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="aspect-square bg-neutral-200 rounded-lg animate-pulse" />
+          <div className="space-y-4">
+            <div className="h-3 w-24 bg-neutral-200 rounded animate-pulse" />
+            <div className="h-8 w-64 bg-neutral-200 rounded animate-pulse" />
+            <div className="h-4 w-full bg-neutral-200 rounded animate-pulse" />
+            <div className="h-4 w-3/4 bg-neutral-200 rounded animate-pulse" />
+            <div className="h-32 w-full bg-neutral-100 rounded-lg animate-pulse mt-8" />
+          </div>
+        </div>
       </div>
     );
   }
@@ -80,9 +89,11 @@ export function ProductPage({ productId }: ProductPageProps) {
             <div className="text-sm text-neutral-600 mb-2">{product.brand}</div>
             <h1 className="text-3xl md:text-4xl mb-4">{product.name}</h1>
             
-            <div className="mb-6">
-              <span className="text-lg text-neutral-600">{product.size}</span>
-            </div>
+            {product.size && (
+              <div className="mb-6">
+                <span className="text-lg text-neutral-600">{product.size}</span>
+              </div>
+            )}
 
             <div className="prose prose-neutral mb-8">
               <p>{product.description}</p>
@@ -128,10 +139,12 @@ export function ProductPage({ productId }: ProductPageProps) {
                   <dt className="text-neutral-600 mb-1">Brand</dt>
                   <dd>{product.brand}</dd>
                 </div>
-                <div>
-                  <dt className="text-neutral-600 mb-1">Size</dt>
-                  <dd>{product.size}</dd>
-                </div>
+                {product.size && (
+                  <div>
+                    <dt className="text-neutral-600 mb-1">Size</dt>
+                    <dd>{product.size}</dd>
+                  </div>
+                )}
                 <div>
                   <dt className="text-neutral-600 mb-1">Category</dt>
                   <dd className="capitalize">{product.category}</dd>
