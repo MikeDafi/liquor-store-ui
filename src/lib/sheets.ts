@@ -217,6 +217,7 @@ export function transformProduct(sheet: SheetProduct) {
   
   return {
     id,
+    code: sheet.code || '',
     name,
     category,
     subcategory: sheet.subcategory || category,
