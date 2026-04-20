@@ -17,7 +17,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src", "*.tsx", "**/*.tsx", "**/*.ts", "data/*.json"],
-  "exclude": ["node_modules", "api", "vite.config.ts", "components/ui"],
+  "exclude": ["node_modules", "api", "vite.config.ts", "components/ui", "scripts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
 
