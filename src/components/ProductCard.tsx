@@ -7,7 +7,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const imageUrl = useProductImage(product.code, product.category);
+  const { src, fallback } = useProductImage(product.code, product.category);
 
   return (
     <a
@@ -16,9 +16,10 @@ export function ProductCard({ product }: ProductCardProps) {
     >
       <div className="aspect-square bg-neutral-100 overflow-hidden">
         <img
-          src={imageUrl}
+          src={src}
           alt={product.name}
           loading="lazy"
+          onError={(e) => { (e.target as HTMLImageElement).src = fallback; }}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>

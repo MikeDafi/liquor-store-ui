@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
 import { MapPin, ChevronLeft, Loader2 } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { useProduct, useCategoryProducts } from '../hooks/useProductCache';
-import { getProductImage } from '../data/imageCache';
+import { getProductImageUrl, getCategoryFallbackImage } from '../data/imageCache';
 
 interface ProductPageProps {
   productId: string;
@@ -10,26 +9,14 @@ interface ProductPageProps {
 
 export function ProductPage({ productId }: ProductPageProps) {
   const { product, loading: productLoading } = useProduct(productId);
-  const [imageUrl, setImageUrl] = useState<string>('');
-  
+
   // Load related products from the same category
   const { products: categoryProducts, loading: categoryLoading } = useCategoryProducts(
     product?.category || ''
   );
 
-  // Update image when product loads
-  useEffect(() => {
-    if (product) {
-      if (product.code) {
-        const initialUrl = getProductImage(product.code, product.category, (newUrl) => {
-          setImageUrl(newUrl);
-        });
-        setImageUrl(initialUrl);
-      } else {
-        setImageUrl(product.image);
-      }
-    }
-  }, [product]);
+  const imageUrl = product?.code ? (getProductImageUrl(product.code) || product.image) : (product?.image || '');
+  const imageFallback = getCategoryFallbackImage(product?.category || '');
 
   if (productLoading) {
     return (
@@ -72,10 +59,10 @@ export function ProductPage({ productId }: ProductPageProps) {
           {/* Image */}
           <div className="aspect-square bg-neutral-50 rounded-lg overflow-hidden flex items-center justify-center p-8">
             <img
-              src={imageUrl || product.image}
+              src={imageUrl}
               alt={product.name}
               className="max-w-full max-h-full object-contain"
-              onError={() => setImageUrl(product.image)}
+              onError={(e) => { (e.target as HTMLImageElement).src = imageFallback; }}
             />
           </div>
 

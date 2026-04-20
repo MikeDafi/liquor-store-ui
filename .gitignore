@@ -26,6 +26,10 @@ dist-ssr
 .vercel
 .env*.local
 
+# Image fetcher
+scripts/.image-progress.json
+scripts/output/
+
 
 
 

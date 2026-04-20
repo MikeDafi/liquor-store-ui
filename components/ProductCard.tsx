@@ -1,34 +1,14 @@
-import { useState, useEffect } from 'react';
 import { MapPin } from 'lucide-react';
 import { Product } from '../data/products';
-import { getProductImage } from '../data/imageCache';
+import { getProductImageUrl, getCategoryFallbackImage } from '../data/imageCache';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  // Get initial image (from cache or fallback)
-  const [imageUrl, setImageUrl] = useState(() => {
-    if (product.code) {
-      return getProductImage(product.code, product.category, (newUrl) => {
-        setImageUrl(newUrl);
-      });
-    }
-    return product.image;
-  });
-
-  // Re-fetch image if product changes
-  useEffect(() => {
-    if (product.code) {
-      const initialUrl = getProductImage(product.code, product.category, (newUrl) => {
-        setImageUrl(newUrl);
-      });
-      setImageUrl(initialUrl);
-    } else {
-      setImageUrl(product.image);
-    }
-  }, [product.code, product.category, product.image]);
+  const imageUrl = (product.code ? getProductImageUrl(product.code) : null) || product.image;
+  const fallback = getCategoryFallbackImage(product.category);
 
   return (
     <a
@@ -41,7 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
           alt={product.name}
           className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
           loading="lazy"
-          onError={() => setImageUrl(product.image)}
+          onError={(e) => { (e.target as HTMLImageElement).src = fallback; }}
         />
       </div>
       

@@ -13,7 +13,7 @@ interface ProductPageProps {
 export function ProductPage({ productId }: ProductPageProps) {
   const { products, loading } = useProducts();
   const product = products.find(p => p.id === productId);
-  const imageUrl = useProductImage(product?.code, product?.category || '');
+  const { src: imageUrl, fallback: imageFallback } = useProductImage(product?.code, product?.category || '');
 
   if (loading) {
     return (
@@ -82,6 +82,7 @@ export function ProductPage({ productId }: ProductPageProps) {
             <img
               src={imageUrl}
               alt={product.name}
+              onError={(e) => { (e.target as HTMLImageElement).src = imageFallback; }}
               className="w-full h-full object-cover"
             />
           </div>

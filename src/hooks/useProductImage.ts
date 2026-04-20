@@ -1,31 +1,18 @@
-import { useState, useEffect } from 'react';
-import { getProductImage, getCategoryFallbackImage } from '../../data/imageCache';
+import { getProductImageUrl, getCategoryFallbackImage } from '../../data/imageCache';
 
 /**
- * Hook that returns a product image URL.
- * Returns the category fallback immediately, then upgrades to the real
- * UPC-looked-up image once the API responds (if one exists).
+ * Returns the blob image URL if configured, otherwise the category fallback.
+ * Components should use onError on the <img> to fall back to the category image.
  */
-export function useProductImage(productCode: string | undefined, category: string): string {
+export function useProductImage(productCode: string | undefined, category: string): {
+  src: string;
+  fallback: string;
+} {
   const fallback = getCategoryFallbackImage(category);
-  const [imageUrl, setImageUrl] = useState<string>(() => {
-    if (!productCode) return fallback;
-    return getProductImage(productCode, category);
-  });
+  const blobUrl = productCode ? getProductImageUrl(productCode) : null;
 
-  useEffect(() => {
-    if (!productCode) {
-      setImageUrl(fallback);
-      return;
-    }
-
-    // getProductImage returns cached/fallback synchronously and fires
-    // the callback when a real image is fetched from the API
-    const initial = getProductImage(productCode, category, (realUrl) => {
-      setImageUrl(realUrl);
-    });
-    setImageUrl(initial);
-  }, [productCode, category, fallback]);
-
-  return imageUrl;
+  return {
+    src: blobUrl || fallback,
+    fallback,
+  };
 }
