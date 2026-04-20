@@ -149,7 +149,7 @@ function parseCSV(csvContent: string): Product[] {
     const size = extractSize(name, category);
     
     products.push({
-      id: `${category}-${code}`,
+      id: code,
       code: code, // Store barcode for image lookups
       name: name,
       category: category,
