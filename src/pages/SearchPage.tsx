@@ -8,9 +8,12 @@ interface SearchPageProps {
   initialQuery?: string;
 }
 
+const PAGE_SIZE = 50;
+
 export function SearchPage({ initialQuery = '' }: SearchPageProps) {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [results, setResults] = useState<Product[]>([]);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const { products, loading } = useProducts();
 
   useEffect(() => {
@@ -27,7 +30,11 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
       );
       setResults(filtered);
     }
+    setVisibleCount(PAGE_SIZE);
   }, [searchQuery, products]);
+
+  const visibleResults = results.slice(0, visibleCount);
+  const hasMore = visibleCount < results.length;
 
   return (
     <div>
@@ -73,11 +80,23 @@ export function SearchPage({ initialQuery = '' }: SearchPageProps) {
         </div>
 
         {results.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {results.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {visibleResults.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+            {hasMore && (
+              <div className="text-center mt-10">
+                <button
+                  onClick={() => setVisibleCount(prev => prev + PAGE_SIZE)}
+                  className="px-8 py-3 border border-neutral-900 rounded-lg hover:bg-neutral-900 hover:text-white transition-colors"
+                >
+                  Load More ({results.length - visibleCount} remaining)
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-12">
             <Search className="w-12 h-12 mx-auto mb-4 text-neutral-300" />

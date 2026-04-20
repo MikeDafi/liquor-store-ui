@@ -1,11 +1,14 @@
 import { MapPin } from 'lucide-react';
 import { Product } from '../data/products';
+import { useProductImage } from '../hooks/useProductImage';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const imageUrl = useProductImage(product.code, product.category);
+
   return (
     <a
       href={`/product/${product.id}`}
@@ -13,7 +16,7 @@ export function ProductCard({ product }: ProductCardProps) {
     >
       <div className="aspect-square bg-neutral-100 overflow-hidden">
         <img
-          src={product.image}
+          src={imageUrl}
           alt={product.name}
           loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

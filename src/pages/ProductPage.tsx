@@ -4,6 +4,7 @@ import { ProductSEO } from '../components/SEOHead';
 import { ProductSchema } from '../components/SchemaOrg';
 import { storeConfig } from '../config/store';
 import { useProducts } from '../hooks/useSheetData';
+import { useProductImage } from '../hooks/useProductImage';
 
 interface ProductPageProps {
   productId: string;
@@ -12,6 +13,7 @@ interface ProductPageProps {
 export function ProductPage({ productId }: ProductPageProps) {
   const { products, loading } = useProducts();
   const product = products.find(p => p.id === productId);
+  const imageUrl = useProductImage(product?.code, product?.category || '');
 
   if (loading) {
     return (
@@ -47,13 +49,13 @@ export function ProductPage({ productId }: ProductPageProps) {
       <ProductSEO
         productName={product.name}
         productDescription={product.description}
-        productImage={product.image}
+        productImage={imageUrl}
         productCategory={product.category}
       />
       <ProductSchema
         name={product.name}
         description={product.description}
-        image={product.image}
+        image={imageUrl}
         brand={product.brand}
         category={product.category}
         sku={product.code}
@@ -78,7 +80,7 @@ export function ProductPage({ productId }: ProductPageProps) {
           {/* Image */}
           <div className="aspect-square bg-neutral-100 rounded-lg overflow-hidden">
             <img
-              src={product.image}
+              src={imageUrl}
               alt={product.name}
               className="w-full h-full object-cover"
             />
