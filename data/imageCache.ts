@@ -23,8 +23,8 @@ const CATEGORY_FALLBACK_IMAGES: Record<string, string> = {
 
 const DEFAULT_FALLBACK = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop&crop=center';
 
-// Vercel Blob base URL — set via env var after first upload
-const BLOB_BASE = import.meta.env.VITE_BLOB_BASE_URL || '';
+// Vercel Blob base URL
+const BLOB_BASE = 'https://j9aoxfppfmk8c42g.public.blob.vercel-storage.com';
 
 /**
  * Get the blob URL for a product image
