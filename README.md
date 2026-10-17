@@ -147,6 +147,61 @@ Each store gets its own:
 - Location information
 - Contact details
 
+## Search discovery verification
+
+The deployed entry point is `src/main.tsx`, which imports the root `App.tsx`.
+The separate `src/App.tsx` and its SEO components are not the active app.
+
+Set `VITE_STORE_ID` to the appropriate key in `data/stores.json` for each build.
+The build generates initial store metadata, basic `LiquorStore` structured data,
+and crawlable store facts in `dist/index.html`. `components/StoreSEO.tsx` handles
+rendered route metadata, canonical URLs, and `noindex` for onsite search pages.
+Hours are deliberately omitted from structured data until owner verification.
+
+The sitemap uses the chosen store's public URL, or an explicit `VITE_SITE_URL`
+override, never the potentially protected `VERCEL_URL`. Category URLs must match
+`data/products.ts`. Store location pages use `data/stores.json` rather than the
+placeholder location dataset. No product sitemap or server-side route rendering
+is implemented by this change; unknown URLs still need proper HTTP 404 handling.
+
+```bash
+node --test scripts/generate-sitemap.test.js
+VITE_STORE_ID=town-country-market npm run build
+npm run preview -- --host 127.0.0.1
+```
+
+Before publishing, verify the store's public URL, phone, daily and holiday hours,
+and delivery availability. After publishing, inspect initial HTML, rendered
+canonical URLs on home/category/product/search pages, `/robots.txt`, and
+`/sitemap.xml`; then submit the sitemap through the owner's search consoles.
+
+## Customer measurement
+
+`StoreMeasurement` records directions, calls, product clicks, and completed
+first-page searches. Search events contain result count, zero-result status, and
+query length, not raw shopper text. Pagination and failed requests do not count
+as new searches. Existing Vercel page analytics remove search text and fragments
+from URLs while retaining simple `utm_source`, `utm_medium`, and `utm_campaign`
+tags. Use nonpersonal campaign labels such as `hotel_a` and `front_desk`.
+
+Configure the owner's existing GA4 web stream with `VITE_GA_MEASUREMENT_ID`, or
+explicitly enable `VITE_VERCEL_CUSTOM_EVENTS=true` on an eligible Vercel plan.
+No new analytics account, paid upgrade, or analytics destination is created by
+these changes. Without a destination, events can be inspected locally by
+listening for the `store:measurement` CustomEvent, but are not stored.
+
+This app sends manual GA4 page views for SPA routes. Before enabling GA4, turn
+off automatic page-view/history collection and automatic site-search collection
+in the web stream's Enhanced Measurement settings to avoid duplicate page views
+and collection of raw search terms. Verify event receipt in GA4 DebugView after
+deployment. Complete analytics disclosure/consent configuration appropriate to
+the actual deployment before collection.
+
+Mark `directions_click` and `phone_click` as proxy key events; they are not
+confirmed purchases. Use checkout attribution and sales exports to measure
+customers and contribution. Search Console, Google Business Profile performance,
+and hourly sales still require owner-authorized exports or account access.
+
 ## License
 
 MIT

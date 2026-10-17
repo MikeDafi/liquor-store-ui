@@ -1,5 +1,6 @@
 import { Phone, Navigation, Search, Home } from 'lucide-react';
 import { getCurrentStore } from '../data/storeConfig';
+import { trackStoreEvent } from '../lib/measurement';
 
 interface MobileBottomBarProps {
   selectedLocation: string;
@@ -10,10 +11,12 @@ export function MobileBottomBar({ onSearchClick }: MobileBottomBarProps) {
   const currentStore = getCurrentStore();
 
   const handleCall = () => {
+    trackStoreEvent('phone_click', { source: 'mobile' });
     window.location.href = `tel:${currentStore.phone}`;
   };
 
   const handleDirections = () => {
+    trackStoreEvent('directions_click', { source: 'mobile' });
     const query = encodeURIComponent(`${currentStore.name}, ${currentStore.address.full}`);
     window.open(`https://maps.google.com/?q=${query}`, '_blank');
   };
@@ -37,13 +40,13 @@ export function MobileBottomBar({ onSearchClick }: MobileBottomBarProps) {
           <span className="text-xs">Search</span>
         </button>
 
-        <button
+        {currentStore.phone && <button
           onClick={handleCall}
           className="flex flex-col items-center justify-center py-2 px-3 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors"
         >
           <Phone className="w-5 h-5 mb-1" />
           <span className="text-xs">Call</span>
-        </button>
+        </button>}
 
         <button
           onClick={handleDirections}

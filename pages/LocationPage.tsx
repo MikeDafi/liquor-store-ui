@@ -1,5 +1,6 @@
 import { MapPin, Phone, Clock, Navigation } from 'lucide-react';
-import { locations } from '../data/locations';
+import { getStoreById } from '../data/storeConfig';
+import { trackStoreEvent } from '../lib/measurement';
 import { categories } from '../data/products';
 import { FAQSection } from '../components/FAQSection';
 
@@ -8,7 +9,14 @@ interface LocationPageProps {
 }
 
 export function LocationPage({ locationId }: LocationPageProps) {
-  const location = locations.find(loc => loc.id === locationId);
+  const store = getStoreById(locationId);
+  const location = store ? {
+    name: store.name,
+    address: store.address.full,
+    phone: store.phone,
+    hours: store.hours,
+    description: store.description,
+  } : undefined;
 
   if (!location) {
     return (
@@ -19,10 +27,12 @@ export function LocationPage({ locationId }: LocationPageProps) {
   }
 
   const handleCall = () => {
+    trackStoreEvent('phone_click', { source: 'location' });
     window.location.href = `tel:${location.phone}`;
   };
 
   const handleDirections = () => {
+    trackStoreEvent('directions_click', { source: 'location' });
     const address = encodeURIComponent(location.address);
     window.open(`https://maps.google.com/?q=${address}`, '_blank');
   };
@@ -56,7 +66,7 @@ export function LocationPage({ locationId }: LocationPageProps) {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3">
+                {location.phone && <div className="flex items-start gap-3">
                   <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
                   <div>
                     <div className="text-sm text-neutral-600 mb-1">Phone</div>
@@ -64,7 +74,7 @@ export function LocationPage({ locationId }: LocationPageProps) {
                       {location.phone}
                     </a>
                   </div>
-                </div>
+                </div>}
 
                 <div className="flex items-start gap-3">
                   <Clock className="w-5 h-5 mt-1 flex-shrink-0" />
@@ -77,13 +87,13 @@ export function LocationPage({ locationId }: LocationPageProps) {
               </div>
 
               <div className="flex gap-3 mt-6">
-                <button
+                {location.phone && <button
                   onClick={handleCall}
                   className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
                   Call Store
-                </button>
+                </button>}
                 <button
                   onClick={handleDirections}
                   className="flex-1 flex items-center justify-center gap-2 px-6 py-3 border border-neutral-900 rounded-lg hover:bg-neutral-50 transition-colors"
@@ -94,14 +104,6 @@ export function LocationPage({ locationId }: LocationPageProps) {
               </div>
             </div>
 
-            {/* Store Image */}
-            <div className="rounded-lg overflow-hidden">
-              <img
-                src={location.image}
-                alt={location.name}
-                className="w-full h-64 object-cover"
-              />
-            </div>
           </div>
 
           {/* Map */}
@@ -111,7 +113,7 @@ export function LocationPage({ locationId }: LocationPageProps) {
               height="100%"
               frameBorder="0"
               style={{ border: 0 }}
-              src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(location.address)}`}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(location.address)}&output=embed`}
               allowFullScreen
               title={`Map of ${location.name}`}
               className="w-full h-full"
