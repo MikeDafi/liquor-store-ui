@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Product } from '../data/products';
+import { trackStoreEvent } from '../lib/measurement';
 import {
   loadProducts,
   getProductsByCategory,
@@ -186,6 +187,13 @@ export function useSearchProducts(
         const result = await searchProducts(query, page, pageSize);
         
         if (mounted) {
+          if (page === 1 && query.trim()) {
+            trackStoreEvent('search_results', {
+              result_count: result.total,
+              zero_results: result.total === 0,
+              query_length: query.trim().length,
+            });
+          }
           setProducts(prev => 
             page === 1 ? result.items : [...prev, ...result.items]
           );
