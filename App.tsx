@@ -10,6 +10,10 @@ import { ProductPage } from './pages/ProductPage';
 import { FAQPage } from './pages/FAQPage';
 import { SearchPage } from './pages/SearchPage';
 import { getCurrentStore } from './data/storeConfig';
+import { StoreSEO } from './components/StoreSEO';
+import { StoreMeasurement } from './components/StoreMeasurement';
+import { cleanAnalyticsUrl, trackStoreEvent } from './lib/measurement';
+import { categories } from './data/products';
 
 type Page = 
   | { type: 'home' }
@@ -90,6 +94,7 @@ function App() {
   };
 
   const handleDirectionsClick = () => {
+    trackStoreEvent('directions_click', { source: 'home' });
     const store = getCurrentStore();
     const query = encodeURIComponent(`${store.name}, ${store.address.full}`);
     window.open(`https://maps.google.com/?q=${query}`, '_blank');
@@ -121,6 +126,15 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <StoreSEO
+        page={currentPage.type}
+        label={currentPage.type === 'category'
+          ? categories.find(category => category.id === currentPage.categoryId)?.name
+          : currentPage.type === 'faq' ? 'Frequently Asked Questions'
+          : currentPage.type === 'search' ? 'Search Products'
+          : currentPage.type === 'product' ? 'Product Details'
+          : currentPage.type === 'location' ? 'Location' : undefined}
+      />
       <Header
         selectedLocation={selectedLocation}
         onLocationChange={setSelectedLocation}
@@ -137,7 +151,8 @@ function App() {
         selectedLocation={selectedLocation}
         onSearchClick={handleSearchClick}
       />
-      <Analytics />
+      <StoreMeasurement path={window.location.pathname} />
+      <Analytics beforeSend={event => ({ ...event, url: cleanAnalyticsUrl(event.url) })} />
     </div>
   );
 }

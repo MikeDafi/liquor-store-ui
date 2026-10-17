@@ -18,12 +18,12 @@ export function Footer() {
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span>{currentStore.address.full}</span>
               </div>
-              <div className="flex items-center gap-2">
+              {currentStore.phone && <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 flex-shrink-0" />
                 <a href={`tel:${currentStore.phone}`} className="hover:text-white transition-colors">
                   {currentStore.phone}
                 </a>
-              </div>
+              </div>}
               <div className="flex items-start gap-2">
                 <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <div>
