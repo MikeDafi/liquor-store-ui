@@ -156,7 +156,10 @@ Set `VITE_STORE_ID` to the appropriate key in `data/stores.json` for each build.
 The build generates initial store metadata, basic `LiquorStore` structured data,
 and crawlable store facts in `dist/index.html`. `components/StoreSEO.tsx` handles
 rendered route metadata, canonical URLs, and `noindex` for onsite search pages.
-Hours are deliberately omitted from structured data until owner verification.
+Only owner-confirmed `openingHoursSpecification` records are included in structured
+data. Town Country Market's owner confirmed (415) 776-4067 and 8 AM to midnight
+daily on October 17, 2026. Other stores' structured hours remain omitted pending
+verification; holiday exceptions still need confirmation.
 
 The sitemap uses the chosen store's public URL, or an explicit `VITE_SITE_URL`
 override, never the potentially protected `VERCEL_URL`. Category URLs must match
