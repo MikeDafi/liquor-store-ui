@@ -46,6 +46,12 @@ export interface StoreConfig {
   address: StoreAddress;
   phone: string;
   hours: StoreHours;
+  openingHoursSpecification?: {
+    '@type': 'OpeningHoursSpecification';
+    dayOfWeek: string[];
+    opens: string;
+    closes: string;
+  }[];
   spreadsheetId: string;
   url: string;
   touristFavorites: string[];

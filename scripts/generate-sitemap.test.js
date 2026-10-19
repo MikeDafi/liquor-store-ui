@@ -47,6 +47,17 @@ for (const [storeId, store] of Object.entries(stores)) {
     assert.equal(schema.url, store.url);
     assert.equal(schema.address.streetAddress, store.address.street);
     assert.ok(!schema.openingHours && !schema.aggregateRating && !schema.review);
+    if (storeId === 'town-country-market') {
+      assert.equal(schema.telephone, undefined, 'Town Country Market must not publish a phone number');
+      assert.deepEqual(schema.openingHoursSpecification, [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '08:00',
+        closes: '00:00',
+      }]);
+    } else {
+      assert.equal(schema.openingHoursSpecification, undefined, 'Do not publish unconfirmed hours for another store');
+    }
   });
 }
 

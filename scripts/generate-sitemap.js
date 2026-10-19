@@ -132,6 +132,7 @@ if (fs.existsSync(path.join(distDir, 'index.html'))) {
       addressCountry: 'US',
     },
     ...(store.phone ? { telephone: store.phone } : {}),
+    ...(store.openingHoursSpecification ? { openingHoursSpecification: store.openingHoursSpecification } : {}),
   };
   const metadata = `<meta name="description" content="${escapeXml(description)}" />
     <meta property="og:title" content="${escapeXml(title)}" />
@@ -145,6 +146,6 @@ if (fs.existsSync(path.join(distDir, 'index.html'))) {
     .replace('</head>', `${metadata}\n  </head>`)
     .replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
   fs.writeFileSync(file, html);
-  console.log('✓ Generated initial HTML store metadata and business schema (hours omitted pending verification)');
+  console.log('✓ Generated initial HTML store metadata and business schema (only owner-confirmed structured hours included)');
 }
 

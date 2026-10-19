@@ -170,6 +170,14 @@
       "weekday": "8 AM - 12 AM",
       "weekend": "8 AM - 12 AM"
     },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "08:00",
+        "closes": "00:00"
+      }
+    ],
     "spreadsheetId": "1__JWmXYb_2fbtMp1Fk7DSCXq6DNQGrFfsLQ4Pdj3emg",
     "url": "https://town-country-market.vercel.app",
     "touristFavorites": [
