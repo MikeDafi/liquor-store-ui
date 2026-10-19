@@ -48,7 +48,7 @@ for (const [storeId, store] of Object.entries(stores)) {
     assert.equal(schema.address.streetAddress, store.address.street);
     assert.ok(!schema.openingHours && !schema.aggregateRating && !schema.review);
     if (storeId === 'town-country-market') {
-      assert.equal(schema.telephone, '(415) 776-4067');
+      assert.equal(schema.telephone, undefined, 'Town Country Market must not publish a phone number');
       assert.deepEqual(schema.openingHoursSpecification, [{
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
