@@ -135,6 +135,7 @@ if (fs.existsSync(path.join(distDir, 'index.html'))) {
     ...(store.openingHoursSpecification ? { openingHoursSpecification: store.openingHoursSpecification } : {}),
   };
   const metadata = `<meta name="description" content="${escapeXml(description)}" />
+    ${env.GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${escapeXml(env.GOOGLE_SITE_VERIFICATION)}" />` : ''}
     <meta property="og:title" content="${escapeXml(title)}" />
     <meta property="og:description" content="${escapeXml(description)}" />
     <meta property="og:type" content="website" />

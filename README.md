@@ -181,6 +181,12 @@ canonical URLs on home/category/product/search pages, `/robots.txt`, and
 
 ## Customer measurement
 
+To verify a URL-prefix property in Google Search Console, set the public HTML-tag
+value as `GOOGLE_SITE_VERIFICATION` in the matching Vercel project and redeploy.
+The build emits the escaped `google-site-verification` tag in the initial HTML
+head. Keep the value configured after verification so ownership stays valid.
+Do not copy the value to unrelated projects or use an API/access token here.
+
 `StoreMeasurement` records directions, calls, product clicks, and completed
 first-page searches. Search events contain result count, zero-result status, and
 query length, not raw shopper text. Pagination and failed requests do not count
