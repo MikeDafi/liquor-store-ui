@@ -23,7 +23,7 @@ function generate(t, overrides) {
   fs.writeFileSync(path.join(dir, 'package.json'), '{"type":"module"}');
   fs.writeFileSync(path.join(dir, 'dist/index.html'), '<html><head><title>Old title</title></head><body><div id="root"></div></body></html>');
   const env = { ...process.env };
-  for (const key of ['VITE_STORE_ID', 'VITE_SITE_URL', 'VERCEL_URL']) delete env[key];
+  for (const key of ['VITE_STORE_ID', 'VITE_SITE_URL', 'VERCEL_URL', 'GOOGLE_SITE_VERIFICATION']) delete env[key];
   const result = spawnSync(process.execPath, ['scripts/generate-sitemap.js'], { cwd: dir, env: { ...env, ...overrides }, encoding: 'utf8' });
   return { result, read: file => fs.readFileSync(path.join(dir, file), 'utf8') };
 }
@@ -40,6 +40,7 @@ for (const [storeId, store] of Object.entries(stores)) {
     assert.ok(!xml.includes('<lastmod>'), 'Build time is not a content modification date');
     assert.ok(read('dist/robots.txt').includes(`Sitemap: ${store.url}/sitemap.xml`));
     const html = read('dist/index.html');
+    assert.ok(!html.includes('name="google-site-verification"'), 'Verification must be explicitly configured per project');
     assert.ok(html.includes(store.address.street));
     assert.ok(html.includes('name="description"'));
     const schema = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
@@ -74,4 +75,12 @@ test('invalid store IDs fail instead of silently generating another store sitema
 
 test('non-HTTP site URLs fail', t => {
   assert.notEqual(generate(t, { VITE_SITE_URL: 'javascript:alert(1)' }).result.status, 0);
+});
+
+test('configured Search Console verification is in initial HTML and escapes attribute content', t => {
+  const { result, read } = generate(t, { VITE_STORE_ID: 'town-country-market', GOOGLE_SITE_VERIFICATION: 'proof<&"token' });
+  assert.equal(result.status, 0, result.stderr);
+  const html = read('dist/index.html');
+  assert.ok(html.includes('<meta name="google-site-verification" content="proof&lt;&amp;&quot;token" />'));
+  assert.ok(html.indexOf('name="google-site-verification"') < html.indexOf('</head>'));
 });
